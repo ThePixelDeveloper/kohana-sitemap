@@ -19,7 +19,7 @@
  *
  * @author Mathew Leigh Davies <thepixeldeveloper@googlemail.com>
  */
-class Sitemap_Data_Geo implements Sitemap_Data {
+class Sitemap_Url_Geo extends Sitemap_Data {
 
 	private $_format = NULL;
 
@@ -28,6 +28,12 @@ class Sitemap_Data_Geo implements Sitemap_Data {
 		'kml', 'georss'
 	);
 
+	/**
+	 * @param string $format Case-insensitive. Specifies the format of the geo content.
+	 * Examples include "kml" and "georss". Only supported formats will be indexed.
+	 *
+	 * @see http://www.google.com/support/webmasters/bin/answer.py?answer=94556
+	 */
 	public function set_format($format)
 	{
 		if (in_array($format, $this->_allowed_formats))
@@ -51,9 +57,9 @@ class Sitemap_Data_Geo implements Sitemap_Data {
 		return $geo;
 	}
 
-	public function root($root)
+	public function root( DOMElement & $root)
 	{
-		return $root->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:geo', 'http://www.google.com/geo/schemas/sitemap/1.0');
+		$root->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:geo', 'http://www.google.com/geo/schemas/sitemap/1.0');
 	}
 
 }

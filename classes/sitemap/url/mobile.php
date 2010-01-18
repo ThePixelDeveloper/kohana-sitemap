@@ -19,7 +19,7 @@
  *
  * @author Mathew Leigh Davies <thepixeldeveloper@googlemail.com>
  */
-class Sitemap_Data_Mobile implements Sitemap_Data {
+class Sitemap_Url_Mobile extends Sitemap_Data {
 
 	public function create()
 	{
@@ -33,9 +33,9 @@ class Sitemap_Data_Mobile implements Sitemap_Data {
 		return $mobile;
 	}
 
-	public function root($root)
+	public function root( DOMElement & $root)
 	{
-		return $root->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:mobile', 'http://www.google.com/schemas/sitemap-mobile/1.0');
+		$root->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:mobile', 'http://www.google.com/schemas/sitemap-mobile/1.0');
 	}
 
 }

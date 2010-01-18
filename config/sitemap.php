@@ -28,6 +28,9 @@ return array(
 	'gzip' => array
 	(
 		'enabled' => TRUE,
+		/*
+		 * From 1-9
+		 */
 		'level' => 9
 	),
 	/**

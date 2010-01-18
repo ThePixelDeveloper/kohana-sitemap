@@ -19,7 +19,7 @@
  *
  * @author Mathew Leigh Davies <thepixeldeveloper@googlemail.com>
  */
-class Sitemap_URL {
+class Sitemap_URL extends Sitemap_Data {
 
 	private $_attributes = array
 	(
@@ -67,29 +67,15 @@ class Sitemap_URL {
 
 	private $_driver = NULL;
 
-	private $_extra = NULL;
-
 	/**
 	 *
-	 * @param <type> $extra 
+	 * @param <type> $driver
 	 */
-	public function __construct( $extra = NULL)
+	public function __construct( $driver = NULL)
 	{
-		if ( is_a($extra, 'Sitemap_Data') AND NULL !== $extra )
+		if ( is_a($driver, 'Sitemap_Data') AND NULL !== $driver )
 		{
-			$this->_driver = $extra;
-			$this->_extra = $extra->create();
-		}
-	}
-
-	public function root( DOMElement $root )
-	{
-		// Add urlset namespace.
-		$root->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
-
-		if (NULL !== $this->_driver)
-		{
-			$this->_driver->root( $root );
+			$this->_driver = $driver;
 		}
 	}
 	
@@ -115,42 +101,20 @@ class Sitemap_URL {
 		// Add additional information
 		if (NULL !== $this->_driver)
 		{
-			$url->appendChild($document->importNode($this->_extra, TRUE));
+			$url->appendChild($document->importNode($this->_driver->create(), TRUE));
 		}
 
 		return $url;
 	}
 
-	/**
-	 * UTF8 encode a string
-	 *
-	 * @param string $string
-	 * @return string
-	 */
-	public static function encode($string)
+	public function root( DOMElement & $root )
 	{
-		$string = htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
+		// Add urlset namespace.
+		$root->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
 
-		// Convert &#039; to &apos;
-		return str_replace('&#039;', '&apos;', $string);
+		if (NULL !== $this->_driver)
+		{
+			$this->_driver->root($root);
+		}
 	}
-
-	/**
-	 * Format a unix timestamp into W3C Datetime
-	 *
-	 * @see http://www.w3.org/TR/NOTE-datetime
-	 * @param string $unix Unixtimestamp
-	 * @return string W3C Datetime
-	 */
-	public static function date_format($unix)
-	{
-		$date = new DateTime;
-
-		// For unixtime stamps.
-		$date->setTimestamp($unix);
-
-		// Format to W3C standards
-		return $date->format(DATE_W3C);
-	}
-
 }

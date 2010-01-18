@@ -1,0 +1,125 @@
+<?php defined('SYSPATH') or die('No direct script access.');
+/**
+ * Sitemap generation class
+ *
+ * Copyright (C) 2009 Mathew Leigh Davies
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ *
+ * @author Mathew Leigh Davies <thepixeldeveloper@googlemail.com>
+ */
+class Sitemap_Url_Code extends Sitemap_Data {
+
+	private $_attributes = array
+	(
+		'filetype'	 => NULL,
+		'license'		 => NULL,
+		'filename'	 => NULL,
+		'packageurl' => NULL,
+		'packagemap' => NULL
+	);
+
+	/**
+	 * @param string $type Case-insensitive. The value "archive" indicates that
+	 * the file is an archive file. For source code files, the value defines the
+	 * the source code language. Examples include "C", "Python", "C#", "Java", "Vim".
+	 * For source code language, the Short Name, as specified in the list of supported
+	 * languages, must be used. The value must be printable ASCII characters, and
+	 * no white space is allowed.
+	 *
+	 * @see http://www.google.com/support/webmasters/bin/answer.py?answer=75252
+	 */
+	public function set_file_type($type)
+	{
+		$this->_attributes['filetype'] = $type;
+	}
+
+	/**
+	 * @param string $license Case-insensitive. The name of the software license.
+	 * For archive files, this indicates the default license for files in the archive.
+	 * Examples include "GPL", "BSD", "Python", "disclaimer". You must use the Short
+	 * Name, as specified in the list of supported licenses.
+	 *
+	 * @see http://www.google.com/support/webmasters/bin/answer.py?answer=75256
+	 */
+	public function set_license($license)
+	{
+		$this->_attributes['license'] = $license;
+	}
+
+	/**
+	 * @param string $file_name The name of the actual file. This is useful if the
+	 * URL ends in something like download.php?id=1234 instead of the actual filename.
+	 * The name can contain any character except "/". If the file is an archive file,
+	 * it will be indexed only if it has one of the supported archive suffixes.
+	 *
+	 * @see http://www.google.com/support/webmasters/bin/answer.py?answer=75259
+	 */
+	public function set_file_name($file_name)
+	{
+		$this->_attributes['filename'] = $file_name;
+	}
+
+	/**
+	 * @param <type> $package_type For use only when the value of codesearch:filetype
+	 * is not "archive". The URL truncated at the top-level directory for the package.
+	 * For example, the file http://path/Foo/1.23/bar/file.c could have the package URL
+	 * http://path/Foo/1.23. All files in a package should have the same packageurl.
+	 * This tells us which files belong together.
+	 */
+	public function set_package_url($package_type)
+	{
+		$this->_attributes['packageurl'] = $package_type;
+	}
+
+	/**
+	 * @param string $package_map Case-sensitive. For use only when codesearch:filetype
+	 * is "archive". The name of the packagemap file inside the archive. Just like a
+	 * Sitemap is a list of files on a web site, a packagemap is a list of files in
+	 * a package.
+	 *
+	 * @see http://www.google.com/help/codesearch_packagemap.html
+	 */
+	public function set_package_map($package_map)
+	{
+		$this->_attributes['packagemap'] = $package_map;
+	}
+
+	public function create()
+	{
+		// Here we need to create a new DOMDocument. This is so we can re-import the
+		// DOMElement at the other end.
+		$document = new DOMDocument;
+
+		// Mobile element
+		$code = $document->createElement('codesearch:codesearch');
+
+		// Append attributes
+		foreach($this->_attributes as $name => $value)
+		{
+			if (NULL !== $value)
+			{
+				$code->appendChild($document->createElement('codesearch:'.$name, $value));
+			}
+		}
+
+		return $code;
+	}
+
+	public function root( DOMElement & $root)
+	{
+		$root->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:codesearch', 'http://www.google.com/codesearch/schemas/sitemap/1.0');
+	}
+
+}

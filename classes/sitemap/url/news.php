@@ -19,7 +19,7 @@
  *
  * @author Mathew Leigh Davies <thepixeldeveloper@googlemail.com>
  */
-class Sitemap_Data_News implements Sitemap_Data {
+class Sitemap_Url_News extends Sitemap_Data {
 
 	private $_publication = NULL;
 
@@ -27,49 +27,96 @@ class Sitemap_Data_News implements Sitemap_Data {
 
 	private $_attributes = array
 	(
-		'access' => NULL,
-		'genres' => NULL,
+		'access'					 => NULL,
+		'genres'					 => NULL,
 		'publication_date' => NULL,
-		'title'	=> NULL,
-		'keywords' => NULL,
-		'stock_tickers' => NULL,
+		'title'						 => NULL,
+		'keywords'				 => NULL,
+		'stock_tickers'		 => NULL,
 	);
 
+	/**
+	 * @param string $publication name of the news publication. It must exactly
+	 * match the name as it appears on your articles in news.google.com, omitting
+	 * any trailing parentheticals.
+	 */
 	public function set_publication($publication)
 	{
 		$this->_publication = $publication;
 	}
 
+	/**
+	 * @param string $lang hould be an ISO 639 Language Code (either 2 or 3 letters).
+	 * Exception: For Chinese, please use zh-cn for Simplified Chinese or zh-tw for
+	 * Traditional Chinese.
+	 *
+	 * @see http://www.loc.gov/standards/iso639-2/php/code_list.php
+	 */
 	public function set_lang($lang)
 	{
 		$this->_lang = $lang;
 	}
 
+	/**
+	 * @param string $access Possible values include "Subscription" or "Registration",
+	 * describing the accessibility of the article. If the article is accessible to
+	 * Google News readers without a registration or subscription, this tag should
+	 * be omitted.
+	 */
 	public function set_access($access)
 	{
 		$this->_attributes['access'] = $access;
 	}
 
+	/**
+	 * @param string $genres A comma-separated list of properties characterizing the
+	 * content of the article, such as "PressRelease" or "UserGenerated." See Google
+	 * News content properties for a list of possible values. Your content must be
+	 * labeled accurately, in order to provide a consistent experience for our users.
+	 *
+	 * @see http://www.google.com/support/webmasters/bin/answer.py?answer=93992
+	 */
 	public function set_genres($genres)
 	{
 		$this->_attributes['genres'] = $genres;
 	}
 
+	/**
+	 * @param integer $date Article publication date in unixtimestamp format
+	 */
 	public function set_publication_date($date)
 	{
-		$this->_attributes['publication_date'] = Sitemap_URL::date_format($date);
+		$this->_attributes['publication_date'] = $this->date_format($date);
 	}
 
+	/**
+	 * @param string $title The title of the news article. Note: The title may be
+	 * truncated for space reasons when shown on Google News.
+	 */
 	public function set_title($title)
 	{
 		$this->_attributes['title'] = $title;
 	}
 
+	/**
+	 * @param string $keywords A comma-separated list of keywords describing the
+	 * topic of the article. Keywords may be drawn from, but are not limited to,
+	 * the list of existing Google News keywords.
+	 * 
+	 * @see http://www.google.com/support/webmasters/bin/answer.py?answer=116037
+	 */
 	public function set_keywords($keywords)
 	{
 		$this->_attributes['keywords'] = $keywords;
 	}
 
+	/**
+	 * @param string $tickers A comma-separated list of up to 5 stock tickers of
+	 * the companies, mutual funds, or other financial entities that are the main
+	 * subject of the article.
+	 *
+	 * @see http://finance.google.com/
+	 */
 	public function set_stock_tickers($tickers)
 	{
 		$this->_attributes['stock_tickers'] = $tickers;
@@ -104,9 +151,9 @@ class Sitemap_Data_News implements Sitemap_Data {
 		return $news;
 	}
 
-	public function root($root)
+	public function root( DOMElement & $root )
 	{
-		return $root->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:n', 'http://www.google.com/schemas/sitemap-news/0.9');
+		$root->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:n', 'http://www.google.com/schemas/sitemap-news/0.9');
 	}
 
 }

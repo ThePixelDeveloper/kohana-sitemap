@@ -19,16 +19,52 @@
  *
  * @author Mathew Leigh Davies <thepixeldeveloper@googlemail.com>
  */
-interface Sitemap_Data {
+abstract class Sitemap_Data {
 
 	/**
-	 * Returns an XML Node Element
+	 * @return DOMElement Extra sitemap information
 	 */
-	function create();
+	abstract public function create();
 
 	/**
-	 * 
+	 * Allows concrete classes to change the document root (urlset) attributes
+	 *
+	 * @param DOMElement $root Document root
+	 * @return DOMElement
 	 */
-	function root($root);
+	abstract public function root( DOMElement & $root );
+	
+	/**
+	 * UTF8 encode a string
+	 *
+	 * @access public
+	 * @param string $string
+	 * @return string
+	 */
+	protected function encode($string)
+	{
+		$string = htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
 
+		// Convert &#039; to &apos;
+		return str_replace('&#039;', '&apos;', $string);
+	}
+
+	/**
+	 * Format a unix timestamp into W3C Datetime
+	 *
+	 * @access public
+	 * @see http://www.w3.org/TR/NOTE-datetime
+	 * @param string $unix Unixtimestamp
+	 * @return string W3C Datetime
+	 */
+	protected function date_format($unix)
+	{
+		$date = new DateTime;
+
+		// For unixtime stamps.
+		$date->setTimestamp($unix);
+
+		// Format to W3C standards
+		return $date->format(DATE_W3C);
+	}
 }

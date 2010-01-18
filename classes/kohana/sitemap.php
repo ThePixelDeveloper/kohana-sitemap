@@ -34,7 +34,7 @@ class Kohana_Sitemap {
 	/**
 	 * Setup the XML document
 	 */
-	public function  __construct()
+	public function __construct()
 	{
 		// XML document
 		$this->_xml = new DOMDocument('1.0', 'UTF-8');
@@ -43,7 +43,7 @@ class Kohana_Sitemap {
 		$this->_xml->formatOutput = TRUE;
 
 		// Root element
-		$this->_root = new DOMElement('urlset');
+		$this->_root = $this->_xml->createElement('urlset');
 
 		// Append to XML document
 		$this->_xml->appendChild($this->_root);
@@ -58,7 +58,7 @@ class Kohana_Sitemap {
 		$url = $object->create();
 
 		// Decorate the urlset
-		$object->root( & $this->_root);
+		$object->root($this->_root);
 		
 		// Append URL to root element
 		$this->_root->appendChild($this->_xml->importNode($url, TRUE));
@@ -97,9 +97,7 @@ class Kohana_Sitemap {
 	}
 
 	/**
-	 * XML output
-	 * 
-	 * @return DOMDocument
+	 * @return string Either an XML document or a gzipped file
 	 */
 	public function render()
 	{
@@ -127,7 +125,11 @@ class Kohana_Sitemap {
 		
 		return $response;
 	}
-	
+
+	/**
+	 *
+	 * @return <type> 
+	 */
 	public function  __toString()
 	{
 		return $this->render();
