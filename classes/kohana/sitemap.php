@@ -84,9 +84,9 @@ class Kohana_Sitemap {
 			$url = sprintf($val, $sitemap);
 			
 			// Send request
-			$request = Request::instance($url);
+			$status = Remote::status($url);
 			
-			if (Kohana::config('sitemap.debug') OR 200 !== $request->status)
+			if (Kohana::config('sitemap.debug') OR 200 !== $status)
 			{
 				// Debugging or failed request
 				Kohana::$log->add(Kohana::ERROR, 'Ping: [ '.$key.' => '.$url.' ] Status code: [ '.$request->status.' ]');
