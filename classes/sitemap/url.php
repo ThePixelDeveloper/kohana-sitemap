@@ -110,7 +110,7 @@ class Sitemap_URL extends Sitemap_Data {
 	public function root( DOMElement & $root )
 	{
 		// Add urlset namespace.
-		$root->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
+		$root->setAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
 
 		if (NULL !== $this->_driver)
 		{
