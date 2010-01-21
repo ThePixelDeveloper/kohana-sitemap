@@ -73,7 +73,7 @@ class Sitemap_URL extends Sitemap_Data {
 	 */
 	public function __construct( $driver = NULL)
 	{
-		if ( $driver instanceof Sitemap_Data AND NULL !== $driver )
+		if ( $driver instanceof Sitemap_Data )
 		{
 			$this->_driver = $driver;
 		}
