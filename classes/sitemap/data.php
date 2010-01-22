@@ -59,12 +59,6 @@ abstract class Sitemap_Data {
 	 */
 	protected function date_format($unix)
 	{
-		$date = new DateTime;
-
-		// For unixtime stamps.
-		$date->setTimestamp($unix);
-
-		// Format to W3C standards
-		return $date->format(DATE_W3C);
+		return date('Y-m-d\TH:i:sP', $unix);
 	}
 }
