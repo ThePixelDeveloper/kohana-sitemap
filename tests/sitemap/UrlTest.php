@@ -338,9 +338,7 @@ class Sitemap_UrlTest extends PHPUnit_Framework_TestCase
 			->set_priority($priority);
 
 		$return = $instance->create();
-
-		/**
-		 * @TODO: INCOMPLETE, ASSERTIONS NEEDED!
-		 */
+		
+		$this->fail('@TODO: INCOMPLETE, ASSERTIONS NEEDED!');
 	}
 }
