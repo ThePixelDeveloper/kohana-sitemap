@@ -21,7 +21,7 @@
  */
 class Sitemap_URL extends Sitemap_Data
 {
-	private $_attributes = array
+	private $attributes = array
 	(
 		'loc'        => NULL,
 		'lastmod'    => NULL,
@@ -48,7 +48,7 @@ class Sitemap_URL extends Sitemap_Data
 			throw new InvalidArgumentException('The location was not a valid URL');
 		}
 		
-		$this->_attributes['loc'] = $this->encode($location);
+		$this->attributes['loc'] = $this->encode($location);
 	}
 
 	/**
@@ -59,7 +59,7 @@ class Sitemap_URL extends Sitemap_Data
 	{
 		if (is_int($lastmod) AND $lastmod >= PHP_INT_SIZE AND $lastmod <= PHP_INT_MAX)
 		{
-			$this->_attributes['lastmod'] = $this->date_format($lastmod);
+			$this->attributes['lastmod'] = $this->date_format($lastmod);
 		}
 		else
 		{
@@ -80,7 +80,7 @@ class Sitemap_URL extends Sitemap_Data
 			throw new InvalidArgumentException('Invalid change frequency');
 		}
 
-		$this->_attributes['changefreq'] = $change_frequency;
+		$this->attributes['changefreq'] = $change_frequency;
 	}
 
 	/**
@@ -102,10 +102,10 @@ class Sitemap_URL extends Sitemap_Data
 		 * @TODO: Deal with locales that don't use a period as their decimal point.
 		 */
 		
-		$this->_attributes['priority'] = $priority;
+		$this->attributes['priority'] = $priority;
 	}
 
-	private $_driver = NULL;
+	private $driver = NULL;
 
 	/**
 	 *
@@ -115,7 +115,7 @@ class Sitemap_URL extends Sitemap_Data
 	{
 		if ( $driver instanceof Sitemap_Data )
 		{
-			$this->_driver = $driver;
+			$this->driver = $driver;
 		}
 	}
 	
@@ -130,7 +130,7 @@ class Sitemap_URL extends Sitemap_Data
 		
 		$url = $document->createElement('url');
 
-		foreach($this->_attributes as $name => $value)
+		foreach($this->attributes as $name => $value)
 		{
 			if (NULL !== $value)
 			{
@@ -139,9 +139,9 @@ class Sitemap_URL extends Sitemap_Data
 		}
 
 		// Add additional information
-		if (NULL !== $this->_driver)
+		if (NULL !== $this->driver)
 		{
-			$url->appendChild($document->importNode($this->_driver->create(), TRUE));
+			$url->appendChild($document->importNode($this->driver->create(), TRUE));
 		}
 
 		return $url;
@@ -152,9 +152,9 @@ class Sitemap_URL extends Sitemap_Data
 		// Add urlset namespace.
 		$root->setAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
 
-		if (NULL !== $this->_driver)
+		if (NULL !== $this->driver)
 		{
-			$this->_driver->root($root);
+			$this->driver->root($root);
 		}
 	}
 }
