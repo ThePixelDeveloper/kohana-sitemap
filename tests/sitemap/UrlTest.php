@@ -236,8 +236,6 @@ class Sitemap_UrlTest extends PHPUnit_Framework_TestCase
 			array('-0.1', TRUE),
 			array(TRUE, TRUE),
 			array(FALSE, TRUE),
-			array(1.1, TRUE),
-			array(-0.1, TRUE),
 			array('disallowed', TRUE),
 			array('content', TRUE),
 		);
