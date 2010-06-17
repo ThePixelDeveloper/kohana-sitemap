@@ -90,10 +90,17 @@ class Sitemap_URL extends Sitemap_Data
 	 */
 	public function set_priority($priority)
 	{
+		// Cast to float.
+		$priority = (float) $priority;
+		
 		if ($priority > 1 OR $priority < 0)
 		{
 			throw new RangeException('Priority must be between 0 and 1.');
 		}
+
+		/*
+		 * @TODO: Deal with locales that don't use a period as their decimal point.
+		 */
 		
 		$this->_attributes['priority'] = $priority;
 	}
