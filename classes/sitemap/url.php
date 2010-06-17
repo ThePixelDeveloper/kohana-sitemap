@@ -84,11 +84,17 @@ class Sitemap_URL extends Sitemap_Data
 	}
 
 	/**
-	 *
-	 * @param <type> $priority 
+	 * The priority of this URL relative to other URLs on your site. Ranges from
+	 * 0 to 1, the default is 0.5
+	 * @param integer $priority
 	 */
 	public function set_priority($priority)
 	{
+		if ($priority > 1 OR $priority < 0)
+		{
+			throw new RangeException('Priority must be between 0 and 1.');
+		}
+		
 		$this->_attributes['priority'] = $priority;
 	}
 
