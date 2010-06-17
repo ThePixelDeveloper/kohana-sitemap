@@ -19,8 +19,8 @@
  *
  * @author Mathew Leigh Davies <thepixeldeveloper@googlemail.com>
  */
-class Sitemap_URL extends Sitemap_Data {
-
+class Sitemap_URL extends Sitemap_Data
+{
 	private $_attributes = array
 	(
 		'loc'        => NULL,
@@ -30,12 +30,25 @@ class Sitemap_URL extends Sitemap_Data {
 	);
 
 	/**
-	 *
-	 * @param <type> $loc
+	 * URL of the page. This URL must begin with the protocol (such as http) and end
+	 * with a trailing slash, if your web server requires it. This value must be
+	 * less than 2,048 characters.
+	 * @see http://www.sitemaps.org/protocol.php
+	 * @param string $location
 	 */
-	public function set_loc($loc)
+	public function set_loc($location)
 	{
-		$this->_attributes['loc'] = $this->encode($loc);
+		if ( ! Validate::max_length($location, 2048))
+		{
+			throw new LengthException('The location was too long, maximum length of 2,048 characters.');
+		}
+
+		if ( ! Validate::url($location))
+		{
+			throw new InvalidArgumentException('The location was not a valid URL');
+		}
+		
+		$this->_attributes['loc'] = $this->encode($location);
 	}
 
 	/**
