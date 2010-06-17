@@ -120,31 +120,36 @@ class Sitemap_URL extends Sitemap_Data
 	}
 	
 	/**
-	 *
+	 * Creates the URL node and decorates it with additional sitemap information.
 	 */
 	public function create()
 	{
-		// Here we need to create a new DOMDocument. This is so we can re-import the
-		// DOMElement at the other end.
 		$document = new DOMDocument;
 		
-		$url = $document->createElement('url');
+		$url_node = $document->createElement('url');
 
 		foreach($this->attributes as $name => $value)
 		{
+			// The loc attribute is required.
+			if(NULL === $this->attributes['loc'])
+			{
+				throw new RuntimeException('loc is required');
+			}
+
+			// Add attributes that aren't empty.
 			if (NULL !== $value)
 			{
-				$url->appendChild(new DOMElement($name, $value));
+				$url_node->appendChild(new DOMElement($name, $value));
 			}
 		}
 
-		// Add additional information
+		// If a specialised sitemap was used, import it's data here.
 		if (NULL !== $this->driver)
 		{
-			$url->appendChild($document->importNode($this->driver->create(), TRUE));
+			$url_node->appendChild($document->importNode($this->driver->create(), TRUE));
 		}
 
-		return $url;
+		return $url_node;
 	}
 
 	public function root( DOMElement & $root )
