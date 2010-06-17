@@ -24,12 +24,12 @@ class Kohana_Sitemap {
 	/**
 	 * @var DOMDocument
 	 */
-	private $_xml = NULL;
+	protected $_xml = NULL;
 
 	/**
 	 * @var DOMElement
 	 */
-	private $_root = NULL;
+	protected $_root = NULL;
 
 	/**
 	 * Setup the XML document
@@ -127,8 +127,7 @@ class Kohana_Sitemap {
 	}
 
 	/**
-	 *
-	 * @return <type> 
+	 * @return string XML output.
 	 */
 	public function  __toString()
 	{
