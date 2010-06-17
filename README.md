@@ -73,20 +73,20 @@ of all sitemaps and has required attributes.
 
 Output:
 
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:n="http://www.google.com/schemas/sitemap-news/0.9">
-  <url>
-    <loc>http://google.com</loc>
-    <lastmod>2010-06-17T19:48:12+01:00</lastmod>
-    <n:news>
-      <n:publication>
-        <n:name>News publication</n:name>
-        <n:lang>en</n:lang>
-      </n:publication>
-      <n:publication_date>2010-06-17T19:48:12+01:00</n:publication_date>
-      <n:title>Kohana has been bought by Ellislab!</n:title>
-    </n:news>
-  </url>
-</urlset>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:n="http://www.google.com/schemas/sitemap-news/0.9">
+      <url>
+        <loc>http://google.com</loc>
+        <lastmod>2010-06-17T19:48:12+01:00</lastmod>
+        <n:news>
+          <n:publication>
+            <n:name>News publication</n:name>
+            <n:lang>en</n:lang>
+          </n:publication>
+          <n:publication_date>2010-06-17T19:48:12+01:00</n:publication_date>
+          <n:title>Kohana has been bought by Ellislab!</n:title>
+        </n:news>
+      </url>
+    </urlset>
 
 Bugs
 ----
