@@ -37,7 +37,7 @@ class Kohana_Sitemap {
 	public function __construct()
 	{
 		// XML document
-		$this->_xml = new DOMDocument('1.0', 'UTF-8');
+		$this->_xml = new DOMDocument('1.0', Kohana::$charset);
 
 		// Attributes
 		$this->_xml->formatOutput = TRUE;
