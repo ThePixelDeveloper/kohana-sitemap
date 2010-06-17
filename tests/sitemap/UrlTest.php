@@ -306,4 +306,41 @@ class Sitemap_UrlTest extends PHPUnit_Framework_TestCase
 		$instance = new Sitemap_URL;
 		$instance->set_priority($priority);
 	}
+
+	/**
+	 * @return array Test data for test_create
+	 */
+	public function provider_create()
+	{
+		return array
+		(
+			array('http://example.com', 1276811183, 'weekly', 0.5),
+			array('http://example.com/folder/', 1276811183, 'monthly', 1),
+		);
+	}
+
+	/**
+	 * @test
+	 * @group sitemap
+	 * @dataProvider provider_create
+	 * @param string $location
+	 * @param integer $lastmod
+	 * @param string $change_frequency
+	 * @param integer|float $priority
+	 */
+	public function test_create($location, $lastmod, $change_frequency, $priority)
+	{
+		$instance = new Sitemap_URL;
+		$instance
+			->set_loc($location)
+			->set_last_mod($lastmod)
+			->set_change_frequency($change_frequency)
+			->set_priority($priority);
+
+		$return = $instance->create();
+
+		/**
+		 * @TODO: INCOMPLETE, ASSERTIONS NEEDED!
+		 */
+	}
 }
