@@ -23,10 +23,10 @@ class Sitemap_URL extends Sitemap_Data {
 
 	private $_attributes = array
 	(
-		'loc'					=> NULL,
-		'lastmod'			=> NULL,
-		'changefreq'	=> NULL,
-		'priority'		=> NULL,
+		'loc'        => NULL,
+		'lastmod'    => NULL,
+		'changefreq' => NULL,
+		'priority'   => NULL,
 	);
 
 	/**
