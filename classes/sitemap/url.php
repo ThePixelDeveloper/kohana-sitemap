@@ -101,7 +101,7 @@ class Sitemap_URL extends Sitemap_Data
 		
 		if ($priority > 1 OR $priority < 0)
 		{
-			throw new RangeException('Priority must be between 0 and 1.');
+			throw new RangeException('Priority must be between 0 and 1 (inclusive).');
 		}
 
 		/*
