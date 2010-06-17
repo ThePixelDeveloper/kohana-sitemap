@@ -241,8 +241,16 @@ class Sitemap_UrlTest extends PHPUnit_Framework_TestCase
 	public function test_set_priority($priority)
 	{
 		$instance = new Sitemap_URL;
-		$return = $instance->set_priority($priority);
-		$this->assertSame($return, $instance);
+
+		try
+		{
+			$return = $instance->set_priority($priority);
+			$this->assertSame($return, $instance);
+		}
+		catch (Exception $e)
+		{
+			$this->fail($e->getMessage());
+		}
 	}
 
 	/**
