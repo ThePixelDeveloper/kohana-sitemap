@@ -228,16 +228,7 @@ class Sitemap_UrlTest extends PHPUnit_Framework_TestCase
 			array('0'),
 			array('0.1'),
 			array('0.2'),
-			array('1'),
-			// Fail
-			array(1.1, TRUE),
-			array(-0.1, TRUE),
-			array('1.1', TRUE),
-			array('-0.1', TRUE),
-			array(TRUE, TRUE),
-			array(FALSE, TRUE),
-			array('disallowed', TRUE),
-			array('content', TRUE),
+			array('1')
 		);
 	}
 
@@ -246,29 +237,65 @@ class Sitemap_UrlTest extends PHPUnit_Framework_TestCase
 	 * @group sitemap
 	 * @dataProvider provider_set_priority
 	 * @param mixed $priority
-	 * @param boolean $raise_exception
 	 */
-	public function test_set_priority($priority, $raise_exception = FALSE)
+	public function test_set_priority($priority)
 	{
 		$instance = new Sitemap_URL;
+		$return = $instance->set_priority($priority);
+		$this->assertSame($return, $instance);
+	}
 
-		if ($raise_exception)
-		{
-			try
-			{
-				$instance->set_priority($priority);
-			}
-			catch (RangeException $e)
-			{
-				return;
-			}
+	/**
+	 * @return array Test data for test_set_priority_range
+	 */
+	public function provider_set_priority_range()
+	{
+		return array
+		(
+			array(1.1),
+			array(-0.1),
+			array('1.1'),
+			array('-0.1')
+		);
+	}
 
-			$this->fail('The RangeException was not raised');
-		}
-		else
-		{
-			$return = $instance->set_priority($priority);
-			$this->assertSame($return, $instance);
-		}
+	/**
+	 * @test
+	 * @group sitemap
+	 * @dataProvider provider_set_priority_range
+	 * @expectedException RangeException
+	 * @param mixed $priority
+	 */
+	public function test_set_priority_range($priority)
+	{
+		$instance = new Sitemap_URL;
+		$instance->set_priority($priority);
+	}
+
+	/**
+	 * @return array Test data for test_set_priority_range_invalid_argument
+	 */
+	public function provider_set_priority_invalid_argument()
+	{
+		return array
+		(
+			array(TRUE),
+			array(FALSE),
+			array('disallowed'),
+			array('content')
+		);
+	}
+
+	/**
+	 * @test
+	 * @group sitemap
+	 * @dataProvider provider_set_priority_invalid_argument
+	 * @expectedException InvalidArgumentException
+	 * @param mixed $priority
+	 */
+	public function test_set_priority_range_invalid_argument($priority)
+	{
+		$instance = new Sitemap_URL;
+		$instance->set_priority($priority);
 	}
 }
