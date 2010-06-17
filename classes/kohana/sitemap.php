@@ -19,17 +19,17 @@
  *
  * @author Mathew Leigh Davies <thepixeldeveloper@googlemail.com>
  */
-class Kohana_Sitemap {
-
+class Kohana_Sitemap
+{
 	/**
 	 * @var DOMDocument
 	 */
-	protected $_xml = NULL;
+	protected $_xml;
 
 	/**
 	 * @var DOMElement
 	 */
-	protected $_root = NULL;
+	protected $_root;
 
 	/**
 	 * Setup the XML document
@@ -50,7 +50,6 @@ class Kohana_Sitemap {
 	}
 	
 	/**
-	 *
 	 * @param Sitemap_URL $object 
 	 */
 	public function add( Sitemap_URL $object )
@@ -132,6 +131,5 @@ class Kohana_Sitemap {
 	public function  __toString()
 	{
 		return $this->render();
-	}
-	
+	}	
 }
