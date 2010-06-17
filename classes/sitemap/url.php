@@ -52,12 +52,19 @@ class Sitemap_URL extends Sitemap_Data
 	}
 
 	/**
-	 *
-	 * @param <type> $lastmod
+	 * The date of last modification of the file.
+	 * @param integer $lastmod Unix timestamp
 	 */
 	public function set_last_mod($lastmod)
 	{
-		$this->_attributes['lastmod'] = $this->date_format($lastmod);
+		if (is_int($lastmod) AND $lastmod >= PHP_INT_SIZE AND $lastmod <= PHP_INT_MAX)
+		{
+			$this->_attributes['lastmod'] = $this->date_format($lastmod);
+		}
+		else
+		{
+			throw new InvalidArgumentException('Must be a unix timestamp');
+		}
 	}
 
 	/**
