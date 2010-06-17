@@ -98,8 +98,10 @@ class Sitemap_URL extends Sitemap_Data
 	 */
 	public function set_priority($priority)
 	{
-		// Cast to float.
-		$priority = (float) $priority;
+		if ( ! is_numeric($priority))
+		{
+			throw new InvalidArgumentException('The priority was not a numeric value.');
+		}
 		
 		if ($priority > 1 OR $priority < 0)
 		{
