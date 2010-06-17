@@ -49,6 +49,8 @@ class Sitemap_URL extends Sitemap_Data
 		}
 		
 		$this->attributes['loc'] = $this->encode($location);
+
+		return $this;
 	}
 
 	/**
@@ -65,6 +67,8 @@ class Sitemap_URL extends Sitemap_Data
 		{
 			throw new InvalidArgumentException('Must be a unix timestamp');
 		}
+
+		return $this;
 	}
 
 	/**
@@ -81,6 +85,8 @@ class Sitemap_URL extends Sitemap_Data
 		}
 
 		$this->attributes['changefreq'] = $change_frequency;
+
+		return $this;
 	}
 
 	/**
@@ -103,6 +109,8 @@ class Sitemap_URL extends Sitemap_Data
 		 */
 		
 		$this->attributes['priority'] = $priority;
+
+		return $this;
 	}
 
 	private $driver = NULL;
