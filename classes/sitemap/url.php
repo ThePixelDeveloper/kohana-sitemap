@@ -68,11 +68,18 @@ class Sitemap_URL extends Sitemap_Data
 	}
 
 	/**
-	 *
-	 * @param <type> $change_frequency
+	 * How frequently the page is likely to change
+	 * @param string $change_frequency
 	 */
 	public function set_change_frequency($change_frequency)
 	{
+		$frequencies = array('always', 'hourly', 'daily', 'weekly', 'monthly', 'yearly', 'never');
+
+		if ( ! in_array($change_frequency, $frequencies))
+		{
+			throw new InvalidArgumentException('Invalid change frequency');
+		}
+
 		$this->_attributes['changefreq'] = $change_frequency;
 	}
 
