@@ -59,7 +59,7 @@ class Sitemap_URL extends Sitemap_Data
 	 */
 	public function set_last_mod($lastmod)
 	{
-		if (is_int($lastmod) AND $lastmod >= PHP_INT_SIZE AND $lastmod <= PHP_INT_MAX)
+		if (is_numeric($lastmod) AND $lastmod >= PHP_INT_SIZE AND $lastmod <= PHP_INT_MAX)
 		{
 			$this->attributes['lastmod'] = $this->date_format($lastmod);
 		}
