@@ -54,8 +54,8 @@ class Sitemap_NewsTest extends PHPUnit_Framework_TestCase
 		$this->assertSame($return, TRUE);
 	}
 
-		/**
-	 * @return array Test data for test_set_loc_good_url
+	/**
+	 * @return array Test data for test_set_loc_bad_url
 	 */
 	public function provider_set_lang_bad()
 	{
