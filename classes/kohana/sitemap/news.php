@@ -62,7 +62,7 @@ class Kohana_Sitemap_News implements Kohana_Sitemap_Interface
 	 */
 	public function set_lang($lang)
 	{
-		if ('zh-cn' !== $lang OR 'zh-tw' !== $lang)
+		if ('zh-cn' !== $lang AND 'zh-tw' !== $lang)
 		{
 			if ( ! Validate::regex($lang, '/^[a-z]{2,3}$/'))
 			{

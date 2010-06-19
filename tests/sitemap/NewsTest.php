@@ -38,7 +38,9 @@ class Sitemap_NewsTest extends PHPUnit_Framework_TestCase
 			array('eng'),
 			array('en'),
 			array('fra'),
-			array('fr')
+			array('fr'),
+			array('zh-tw'),
+			array('zh-cn')
 		);
 	}
 
