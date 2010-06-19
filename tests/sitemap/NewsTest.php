@@ -81,7 +81,7 @@ class Sitemap_NewsTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @return array Test data for test_set_loc_good_access
+	 * @return array Test data for test_set_access_good
 	 */
 	public function provider_set_access_good()
 	{
@@ -104,5 +104,32 @@ class Sitemap_NewsTest extends PHPUnit_Framework_TestCase
 		$instance = new Sitemap_Url_News;
 		$return = $instance->set_access($access);
 		$this->assertSame($return, TRUE);
+	}
+
+	/**
+	 * @return array Test data for test_set_access_bad
+	 */
+	public function provider_set_access_bad()
+	{
+		return array
+		(
+			array('something'),
+			array(TRUE),
+			array(FALSE),
+			array(1),
+			array(0)
+		);
+	}
+
+	/**
+	 * @test
+	 * @group sitemap
+	 * @dataProvider provider_set_access_bad
+	 * @expectedException InvalidArgumentException
+	 */
+	public function test_set_access_bad($lang)
+	{
+		$instance = new Sitemap_Url_News;
+		$return = $instance->set_access($lang);
 	}
 }
