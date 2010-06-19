@@ -104,7 +104,7 @@ class Sitemap_DataTest extends PHPUnit_Framework_TestCase
 		// Ping keys
 		$keys = array_keys(Kohana::config('sitemap.ping'));
 
-		$statuses = Sitemap::ping('http://nolimits-exchange.com/sitemap.xml');
+		$statuses = Sitemap::ping('http://example.com/sitemap.xml');
 
 		// Make sure we get a valid HTTP code back.
 		foreach($keys as $row)
