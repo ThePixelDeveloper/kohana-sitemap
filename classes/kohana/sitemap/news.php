@@ -19,7 +19,7 @@
  *
  * @author Mathew Leigh Davies <thepixeldeveloper@googlemail.com>
  */
-class Sitemap_Url_News implements Kohana_Sitemap_Interface
+class Kohana_Sitemap_News implements Kohana_Sitemap_Interface
 {
 	/**
 	 * @var array publication details

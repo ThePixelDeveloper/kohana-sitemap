@@ -19,7 +19,8 @@
  *
  * @author Mathew Leigh Davies <thepixeldeveloper@googlemail.com>
  */
-class Sitemap_Url_Geo extends Sitemap_Data {
+class Kohana_Sitemap_Geo implements Kohana_Sitemap_Interface
+{
 
 	private $_format = NULL;
 

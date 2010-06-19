@@ -49,7 +49,7 @@ class Sitemap_NewsTest extends PHPUnit_Framework_TestCase
 	 */
 	public function test_set_lang_good($lang)
 	{
-		$instance = new Sitemap_Url_News;
+		$instance = new Sitemap_News;
 		$return = $instance->set_lang($lang);
 		$this->assertSame($return, TRUE);
 	}
@@ -76,7 +76,7 @@ class Sitemap_NewsTest extends PHPUnit_Framework_TestCase
 	 */
 	public function test_set_lang_bad($lang)
 	{
-		$instance = new Sitemap_Url_News;
+		$instance = new Sitemap_News;
 		$return = $instance->set_lang($lang);
 	}
 
@@ -101,7 +101,7 @@ class Sitemap_NewsTest extends PHPUnit_Framework_TestCase
 	 */
 	public function test_set_access_good($access)
 	{
-		$instance = new Sitemap_Url_News;
+		$instance = new Sitemap_News;
 		$return = $instance->set_access($access);
 		$this->assertSame($return, TRUE);
 	}
@@ -129,7 +129,7 @@ class Sitemap_NewsTest extends PHPUnit_Framework_TestCase
 	 */
 	public function test_set_access_bad($lang)
 	{
-		$instance = new Sitemap_Url_News;
+		$instance = new Sitemap_News;
 		$return = $instance->set_access($lang);
 	}
 
@@ -153,7 +153,7 @@ class Sitemap_NewsTest extends PHPUnit_Framework_TestCase
 	 */
 	public function test_set_genre_good($genres)
 	{
-		$instance = new Sitemap_Url_News;
+		$instance = new Sitemap_News;
 		$return = $instance->set_genres($genres);
 		$this->assertSame($return, TRUE);
 	}
@@ -179,7 +179,7 @@ class Sitemap_NewsTest extends PHPUnit_Framework_TestCase
 	 */
 	public function test_set_genre_bad($genres)
 	{
-		$instance = new Sitemap_Url_News;
+		$instance = new Sitemap_News;
 		$return = $instance->set_genres($genres);
 	}
 }
