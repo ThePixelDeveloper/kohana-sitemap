@@ -69,6 +69,7 @@ class Sitemap_DataTest extends PHPUnit_Framework_TestCase
 			array(TRUE, FALSE)
 		);
 	}
+
 	/**
 	 * @test
 	 * @group sitemap
@@ -92,5 +93,23 @@ class Sitemap_DataTest extends PHPUnit_Framework_TestCase
 
 		$return = Sitemap::date_format($date);
 		$this->assertSame($expected, $return);
+	}
+
+	/**
+	 * @test
+	 * @group sitemap
+	 */
+	public function test_ping()
+	{
+		// Ping keys
+		$keys = array_keys(Kohana::config('sitemap.ping'));
+
+		$statuses = Sitemap::ping('http://nolimits-exchange.com/sitemap.xml');
+
+		// Make sure we get a valid HTTP code back.
+		foreach($keys as $row)
+		{
+			$this->assertRegExp('/^[1-5][0-9]{2}$/', (string) $statuses[$row]);
+		}
 	}
 }

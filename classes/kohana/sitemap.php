@@ -67,32 +67,51 @@ class Kohana_Sitemap
 	 * Ping web services
 	 * 
 	 * @param string $sitemap Full website path to sitemap
-	 * @return Sitemap
+	 * @return array Service key with the HTTP response code as the value.
 	 */
 	public static function ping($sitemap)
 	{
-		// URL encode sitemap address.
-		$sitemap = urlencode($sitemap);
+		// Main handle
+		$master = curl_multi_init();
 
-		// List of ping URLs
-		$urls = Kohana::config('sitemap.ping');
+		// List of URLs to ping
+		$URLs = Kohana::config('sitemap.ping');
 
-		foreach($urls as $key => $val)
+		$handles = array();
+
+		// Create handles for each URL and add them to the main handle.
+		foreach($URLs as $key => $val)
 		{
-			// Replace placholder with URL
-			$url = sprintf($val, $sitemap);
+			$handles[$key] = curl_init(sprintf($val, $sitemap));
 			
-			// Send request
-			$status = Remote::status($url);
-			
-			if (Kohana::config('sitemap.debug') OR 200 !== $status)
-			{
-				// Debugging or failed request
-				Kohana::$log->add(Kohana::ERROR, 'Ping: [ '.$key.' => '.$url.' ] Status code: [ '.$request->status.' ]');
-			}
+			curl_setopt($handles[$key], CURLOPT_FOLLOWLOCATION, TRUE);
+			curl_setopt($handles[$key], CURLOPT_RETURNTRANSFER, TRUE);
+			curl_setopt($handles[$key], CURLOPT_USERAGENT, 'Mozilla/5.0 (X11; U; Linux x86_64; en-GB; rv:1.9.2.3) Gecko/20100423 Ubuntu/10.04 (lucid) Firefox/3.6.3');
+
+			curl_multi_add_handle($master, $handles[$key]);
+		}
+		
+		do
+		{
+			curl_multi_exec($master, $still_running);
+		}
+		while ($still_running > 0);
+		
+		$info = array();
+
+		// Build an array of the execution information.
+		foreach(array_keys($URLs) as $key)
+		{
+			$info[$key] = curl_getinfo($handles[$key], CURLINFO_HTTP_CODE);
+
+			// Close the handles while we're here.
+			curl_multi_remove_handle($master, $handles[$key]);
 		}
 
-		return $this;
+		// and finally close the master handle.
+		curl_multi_close($master);
+
+		return $info;
 	}
 
 	/**
