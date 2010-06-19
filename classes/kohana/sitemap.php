@@ -96,6 +96,34 @@ class Kohana_Sitemap
 	}
 
 	/**
+	 * UTF8 encode a string
+	 *
+	 * @access public
+	 * @param string $string
+	 * @return string
+	 */
+	public static function encode($string)
+	{
+		$string = htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
+
+		// Convert &#039; to &apos;
+		return str_replace('&#039;', '&apos;', $string);
+	}
+
+	/**
+	 * Format a unix timestamp into W3C Datetime
+	 *
+	 * @access public
+	 * @see http://www.w3.org/TR/NOTE-datetime
+	 * @param string $unix Unixtimestamp
+	 * @return string W3C Datetime
+	 */
+	public static function date_format($unix)
+	{
+		return date('Y-m-d\TH:i:sP', $unix);
+	}
+
+	/**
 	 * @return string Either an XML document or a gzipped file
 	 */
 	public function render()
