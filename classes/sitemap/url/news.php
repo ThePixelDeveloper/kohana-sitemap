@@ -101,9 +101,20 @@ class Sitemap_Url_News implements Kohana_Sitemap_Interface
 	 *
 	 * @see http://www.google.com/support/webmasters/bin/answer.py?answer=93992
 	 */
-	public function set_genres($genres)
+	public function set_genres( array $genres)
 	{
-		$this->_attributes['genres'] = $genres;
+		$allowed = array('PressRelease', 'Satire', 'Blog', 'OpEd', 'Opinion', 'UserGenerated');
+
+		$difference = array_diff($genres, $allowed);
+
+		if (count($difference) > 0)
+		{
+			throw new InvalidArgumentException('Invalid genre passed');
+		}
+
+		$this->_attributes['genres'] = implode(',', $genres);
+
+		return TRUE;
 	}
 
 	/**

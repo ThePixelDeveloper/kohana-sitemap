@@ -132,4 +132,54 @@ class Sitemap_NewsTest extends PHPUnit_Framework_TestCase
 		$instance = new Sitemap_Url_News;
 		$return = $instance->set_access($lang);
 	}
+
+	/**
+	 * @return array Test data for test_set_genre_good
+	 */
+	public function provider_set_genre_good()
+	{
+		return array
+		(
+			array(array('PressRelease', 'Blog', 'Satire')),
+			array(array('Opinion', 'UserGenerated')),
+			array(array('OpEd'))
+		);
+	}
+
+	/**
+	 * @test
+	 * @group sitemap
+	 * @dataProvider provider_set_genre_good
+	 */
+	public function test_set_genre_good($genres)
+	{
+		$instance = new Sitemap_Url_News;
+		$return = $instance->set_genres($genres);
+		$this->assertSame($return, TRUE);
+	}
+
+	/**
+	 * @return array Test data for test_set_genre_bad
+	 */
+	public function provider_set_genre_bad()
+	{
+		return array
+		(
+			array(array('gore', 'horror', 'rollercoaster')),
+			array(array('something', 'else')),
+			array(array(1, 2, 3))
+		);
+	}
+
+	/**
+	 * @test
+	 * @group sitemap
+	 * @dataProvider provider_set_genre_bad
+	 * @expectedException InvalidArgumentException
+	 */
+	public function test_set_genre_bad($genres)
+	{
+		$instance = new Sitemap_Url_News;
+		$return = $instance->set_genres($genres);
+	}
 }
