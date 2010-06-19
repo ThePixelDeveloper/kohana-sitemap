@@ -47,7 +47,7 @@ class Sitemap_NewsTest extends PHPUnit_Framework_TestCase
 	 * @group sitemap
 	 * @dataProvider provider_set_lang_good
 	 */
-	public function set_lang_good($lang)
+	public function test_set_lang_good($lang)
 	{
 		$instance = new Sitemap_Url_News;
 		$return = $instance->set_lang($lang);
@@ -74,9 +74,35 @@ class Sitemap_NewsTest extends PHPUnit_Framework_TestCase
 	 * @dataProvider provider_set_lang_bad
 	 * @expectedException InvalidArgumentException
 	 */
-	public function set_lang_bad($lang)
+	public function test_set_lang_bad($lang)
 	{
 		$instance = new Sitemap_Url_News;
 		$return = $instance->set_lang($lang);
+	}
+
+	/**
+	 * @return array Test data for test_set_loc_good_access
+	 */
+	public function provider_set_access_good()
+	{
+		return array
+		(
+			array('subscription'),
+			array('registration'),
+			array('ReGiStRaTiOn'),
+			array('SuBsCrIpTiOn')
+		);
+	}
+
+	/**
+	 * @test
+	 * @group sitemap
+	 * @dataProvider provider_set_access_good
+	 */
+	public function test_set_access_good($access)
+	{
+		$instance = new Sitemap_Url_News;
+		$return = $instance->set_access($access);
+		$this->assertSame($return, TRUE);
 	}
 }

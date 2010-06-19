@@ -83,7 +83,14 @@ class Sitemap_Url_News implements Kohana_Sitemap_Interface
 	 */
 	public function set_access($access)
 	{
+		if ('subscription' !== strtolower($access) AND 'registration' !== strtolower($access))
+		{
+			throw new InvalidArgumentException('Invalid access string');
+		}
+
 		$this->_attributes['access'] = $access;
+
+		return TRUE;
 	}
 
 	/**
