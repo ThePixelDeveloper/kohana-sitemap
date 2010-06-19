@@ -19,13 +19,21 @@
  *
  * @author Mathew Leigh Davies <thepixeldeveloper@googlemail.com>
  */
-class Sitemap_Url_News extends Sitemap_Data {
+class Sitemap_Url_News implements Kohana_Sitemap_Interface
+{
+	/**
+	 * @var array publication details
+	 */
+	protected $_publication = array
+	(
+		'publication' => NULL,
+		'lang'        => NULL
+	);
 
-	private $_publication = NULL;
-
-	private $_lang = NULL;
-
-	private $_attributes = array
+	/**
+	 * @var array article attributes
+	 */
+	protected $_attributes = array
 	(
 		'access'					 => NULL,
 		'genres'					 => NULL,
@@ -42,7 +50,7 @@ class Sitemap_Url_News extends Sitemap_Data {
 	 */
 	public function set_publication($publication)
 	{
-		$this->_publication = $publication;
+		$this->_publication['publication'] = $publication;
 	}
 
 	/**
@@ -54,7 +62,7 @@ class Sitemap_Url_News extends Sitemap_Data {
 	 */
 	public function set_lang($lang)
 	{
-		$this->_lang = $lang;
+		$this->_publication['lang'] = $lang;
 	}
 
 	/**
@@ -86,7 +94,7 @@ class Sitemap_Url_News extends Sitemap_Data {
 	 */
 	public function set_publication_date($date)
 	{
-		$this->_attributes['publication_date'] = $this->date_format($date);
+		$this->_attributes['publication_date'] = Sitemap::date_format($date);
 	}
 
 	/**
@@ -136,8 +144,8 @@ class Sitemap_Url_News extends Sitemap_Data {
 		$news->appendChild($publication);
 
 		// Publication attributes
-		$publication->appendChild($document->createElement('n:name', $this->_publication));
-		$publication->appendChild($document->createElement('n:lang', $this->_lang));
+		$publication->appendChild($document->createElement('n:name', $this->_publication['publication']));
+		$publication->appendChild($document->createElement('n:lang', $this->_publication['lang']));
 
 		// Append attributes
 		foreach($this->_attributes as $name => $value)
