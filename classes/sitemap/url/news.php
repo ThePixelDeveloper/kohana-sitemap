@@ -62,7 +62,17 @@ class Sitemap_Url_News implements Kohana_Sitemap_Interface
 	 */
 	public function set_lang($lang)
 	{
+		if ('zh-cn' !== $lang OR 'zh-tw' !== $lang)
+		{
+			if ( ! Validate::regex($lang, '/^[a-z]{2,3}$/'))
+			{
+				throw new InvalidArgumentException('Invalid language code');
+			}
+		}
+		
 		$this->_publication['lang'] = $lang;
+
+		return TRUE;
 	}
 
 	/**
