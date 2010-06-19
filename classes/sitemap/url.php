@@ -43,12 +43,14 @@ class Sitemap_URL implements Kohana_Sitemap_Interface
 			throw new LengthException('The location was too long, maximum length of 2,048 characters.');
 		}
 
+		$location = Sitemap::encode($location);
+		
 		if ( ! Validate::url($location))
 		{
 			throw new InvalidArgumentException('The location was not a valid URL');
 		}
 		
-		$this->attributes['loc'] = Sitemap::encode($location);
+		$this->attributes['loc'] = $location;
 
 		return $this;
 	}
