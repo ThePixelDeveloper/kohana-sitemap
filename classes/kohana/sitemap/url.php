@@ -61,14 +61,7 @@ class Kohana_Sitemap_URL implements Kohana_Sitemap_Interface
 	 */
 	public function set_last_mod($lastmod)
 	{
-		if (is_numeric($lastmod) AND $lastmod >= PHP_INT_SIZE AND $lastmod <= PHP_INT_MAX)
-		{
-			$this->attributes['lastmod'] = Sitemap::date_format($lastmod);
-		}
-		else
-		{
-			throw new InvalidArgumentException('Must be a unix timestamp');
-		}
+		$this->attributes['lastmod'] = Sitemap::date_format($lastmod);
 
 		return $this;
 	}

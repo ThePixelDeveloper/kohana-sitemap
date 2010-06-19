@@ -131,12 +131,12 @@ class Kohana_Sitemap
 	 */
 	public static function date_format($unix)
 	{
-		if (is_numeric($unix))
+		if (is_numeric($unix) AND $unix <= PHP_INT_MAX)
 		{
 			return date('Y-m-d\TH:i:sP', $unix);
 		}
-		
-		return FALSE;
+
+		throw new InvalidArgumentException('Must be a unix timestamp');
 	}
 
 	/**

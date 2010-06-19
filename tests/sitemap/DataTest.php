@@ -76,6 +76,20 @@ class Sitemap_DataTest extends PHPUnit_Framework_TestCase
 	 */
 	public function test_date_format($date, $expected)
 	{
+		if ( ! $expected)
+		{
+			try
+			{
+				Sitemap::date_format($date);
+			}
+			catch (InvalidArgumentException $e)
+			{
+				return;
+			}
+
+			$this->fail('The InvalidArgumentException was not raised');
+		}
+
 		$return = Sitemap::date_format($date);
 		$this->assertSame($expected, $return);
 	}
