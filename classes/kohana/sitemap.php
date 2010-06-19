@@ -106,7 +106,18 @@ class Kohana_Sitemap
 	{
 		$string = htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
 
-		// Convert &#039; to &apos;
+		// This is a rather ugly hack. Basically urlencode and rawurlencode use RFC 1738
+		// encoding. This brings it up to date (RFC 3986); The newer RFC has a different
+		// set of reserved characters. Credit goes to davis dot peixoto at gmail dot com
+		// God bless PHP comments.
+		$entities = array('%21', '%2A', '%27', '%28', '%29', '%3B', '%3A', '%40', 
+			'%26', '%3D', '%2B', '%24', '%2C', '%2F', '%3F', '%25', '%23', '%5B', '%5D');
+		
+    $replacements = array('!', '*', "'", "(", ")", ";", ":", "@", "&", "=", "+",
+			"$", ",", "/", "?", "%", "#", "[", "]");
+
+		$string = str_replace($entities, $replacements, urlencode($string));
+		
 		return str_replace('&#039;', '&apos;', $string);
 	}
 
@@ -120,7 +131,12 @@ class Kohana_Sitemap
 	 */
 	public static function date_format($unix)
 	{
-		return date('Y-m-d\TH:i:sP', $unix);
+		if (is_numeric($unix))
+		{
+			return date('Y-m-d\TH:i:sP', $unix);
+		}
+		
+		return FALSE;
 	}
 
 	/**
