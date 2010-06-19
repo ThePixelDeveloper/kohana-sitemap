@@ -19,7 +19,7 @@
  *
  * @author Mathew Leigh Davies <thepixeldeveloper@googlemail.com>
  */
-class Sitemap_URL extends Sitemap_Data
+class Sitemap_URL implements Kohana_Sitemap_Interface
 {
 	private $attributes = array
 	(
@@ -48,7 +48,7 @@ class Sitemap_URL extends Sitemap_Data
 			throw new InvalidArgumentException('The location was not a valid URL');
 		}
 		
-		$this->attributes['loc'] = $this->encode($location);
+		$this->attributes['loc'] = Sitemap::encode($location);
 
 		return $this;
 	}
@@ -61,7 +61,7 @@ class Sitemap_URL extends Sitemap_Data
 	{
 		if (is_numeric($lastmod) AND $lastmod >= PHP_INT_SIZE AND $lastmod <= PHP_INT_MAX)
 		{
-			$this->attributes['lastmod'] = $this->date_format($lastmod);
+			$this->attributes['lastmod'] = Sitemap::date_format($lastmod);
 		}
 		else
 		{
