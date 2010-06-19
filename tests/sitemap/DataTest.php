@@ -35,8 +35,12 @@ class Sitemap_DataTest extends PHPUnit_Framework_TestCase
 	{
 		return array
 		(
-			array(),
-			array()
+			array('http://example.com/<element>', 'http://example.com/&lt;element&gt;'),
+			array('http://example.com/"something-weird"', 'http://example.com/&quot;something-weird&quot;'),
+			array("http://example.com/'sample-url'", "http://example.com/&apos;sample-url&apos;"),
+			array('http://example.com?param=one&param=two', 'http://example.com?param=one&amp;param=two'),
+			array('http://example.com/ümlat.php&q=name', 'http://example.com/%C3%BCmlat.php&amp;q=name'),
+			array('http://example.com/hello%encoding', 'http://example.com/hello%25encoding')
 		);
 	}
 	/**
@@ -44,11 +48,10 @@ class Sitemap_DataTest extends PHPUnit_Framework_TestCase
 	 * @group sitemap
 	 * @dataProvider provider_encode
 	 */
-	public function test_encode($timestamp, $expected)
+	public function test_encode($string, $expected)
 	{
-		$instance = new Sitemap_Data;
-		$return = $instance->encode($timestamp);
-		$this->assertSame($return, $expected);
+		$return = Sitemap::encode($string);
+		$this->assertSame($expected, $return);
 	}
 
 	/**
@@ -56,10 +59,14 @@ class Sitemap_DataTest extends PHPUnit_Framework_TestCase
 	 */
 	public function provider_date_format()
 	{
+		date_default_timezone_set('Europe/London');
+		
 		return array
 		(
-			array(),
-			array()
+			array(0, '1970-01-01T01:00:00+01:00'),
+			array(1276912781, '2010-06-19T02:59:41+01:00'),
+			array('invalid', FALSE),
+			array(TRUE, FALSE)
 		);
 	}
 	/**
@@ -69,8 +76,7 @@ class Sitemap_DataTest extends PHPUnit_Framework_TestCase
 	 */
 	public function test_date_format($date, $expected)
 	{
-		$instance = new Sitemap_Data;
-		$return = $instance->date_format($timestamp);
-		$this->assertSame($return, $expected);
+		$return = Sitemap::date_format($date);
+		$this->assertSame($expected, $return);
 	}
 }
