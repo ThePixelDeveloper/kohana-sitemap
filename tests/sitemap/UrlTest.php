@@ -314,6 +314,8 @@ class Sitemap_UrlTest extends PHPUnit_Framework_TestCase
 	{
 		return array
 		(
+			array('http://example.com', 1276811183, 'weekly', 0.5),
+			array('http://example.com/folder/', 1276811183, 'monthly', 1),
 			array('http://example.com', '1276811183', 'weekly', '0.5'),
 			array('http://example.com/folder/', '1276811183', 'monthly', '1'),
 		);
@@ -344,8 +346,8 @@ class Sitemap_UrlTest extends PHPUnit_Framework_TestCase
 		// CLI runner. Using assertTag or assertSelectEquals only gives me a boolean
 		// value back and makes it very hard to track down errors.
 		$xml = simplexml_import_dom($return);
-		$this->assertEquals($location, (string) $xml->loc);
-		$this->assertEquals($lastmod, (string) $xml->lastmod);
+		$this->assertEquals(Sitemap::encode($location), (string) $xml->loc);
+		$this->assertEquals(Sitemap::date_format($lastmod), (string) $xml->lastmod);
 		$this->assertEquals($change_frequency, (string) $xml->changefreq);
 		$this->assertEquals($priority, (string) $xml->priority);
 	}
