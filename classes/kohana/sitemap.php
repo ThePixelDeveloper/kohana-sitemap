@@ -159,6 +159,16 @@ class Kohana_Sitemap
 	}
 
 	/**
+	 * @var boolean Enable gzip compression
+	 */
+	public $gzip = FALSE;
+
+	/**
+	 * @var integer Compression level
+	 */
+	public $compression = 7;
+
+	/**
 	 * @return string Either an XML document or a gzipped file
 	 */
 	public function render()
@@ -166,18 +176,12 @@ class Kohana_Sitemap
 		// Default uncompressed
 		$response = $this->_xml->saveXML();
 
-		$gzip = Kohana::config('sitemap.gzip');
-
-		// If the gzip extension is provided in the URL and is enabled in the config
-		// we send back a gzipped compressed file
-		$uri = Request::instance()->param('gzip');
-		
-		if ($gzip['enabled'] AND NULL !== $uri)
+		if ($this->gzip)
 		{
 			// Try and gzip the file before we send it off.
 			try
 			{
-				$response = gzencode($response, $gzip['level']);
+				$response = gzencode($response, $this->compression);
 			}
 			catch (ErrorException $e)
 			{
