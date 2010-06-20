@@ -184,4 +184,48 @@ class Sitemap_NewsTest extends PHPUnit_Framework_TestCase
 		$instance = new Sitemap_News;
 		$return = $instance->set_genres($genres);
 	}
+
+	/**
+	 * @return array Test data for test_set_publication_date
+	 */
+	public function provider_set_publication_date()
+	{
+		return array
+		(
+			array(1276811183),
+			array('17-06-2010', TRUE),
+			array('2010-06-16T17:07:56-05:00', TRUE)
+		);
+	}
+
+	/**
+	 * @test
+	 * @group sitemap
+	 * @dataProvider provider_set_publication_date
+	 * @param mixed $time
+	 * @param boolean $raise_exception
+	 */
+	public function test_set_publication_date($time, $raise_exception = FALSE)
+	{
+		$instance = new Sitemap_News;
+
+		if ($raise_exception)
+		{
+			try
+			{
+				$instance->set_publication_date($time);
+			}
+			catch (InvalidArgumentException $e)
+			{
+				return;
+			}
+
+			$this->fail('The InvalidArgumentException was not raised');
+		}
+		else
+		{
+			$return = $instance->set_publication_date($time);
+			$this->assertSame(TRUE, $return);
+		}
+	}
 }

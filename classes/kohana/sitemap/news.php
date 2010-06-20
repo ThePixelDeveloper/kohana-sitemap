@@ -123,6 +123,8 @@ class Kohana_Sitemap_News implements Kohana_Sitemap_Interface
 	public function set_publication_date($date)
 	{
 		$this->_attributes['publication_date'] = Sitemap::date_format($date);
+
+		return TRUE;
 	}
 
 	/**
