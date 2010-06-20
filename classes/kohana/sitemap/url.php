@@ -112,18 +112,18 @@ class Kohana_Sitemap_URL implements Kohana_Sitemap_Interface
 		return $this;
 	}
 
+	/**
+	 * @var Kohana_Sitemap_Interface
+	 */
 	private $driver = NULL;
 
 	/**
 	 *
 	 * @param <type> $driver
 	 */
-	public function __construct( $driver = NULL)
+	public function __construct(Kohana_Sitemap_Interface $driver = NULL)
 	{
-		if ( $driver instanceof Sitemap_Data )
-		{
-			$this->driver = $driver;
-		}
+		$this->driver = $driver;
 	}
 
 	/**
