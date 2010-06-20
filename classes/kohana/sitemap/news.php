@@ -51,6 +51,8 @@ class Kohana_Sitemap_News implements Kohana_Sitemap_Interface
 	public function set_publication($publication)
 	{
 		$this->_publication['publication'] = $publication;
+
+		return $this;
 	}
 
 	/**
@@ -162,6 +164,8 @@ class Kohana_Sitemap_News implements Kohana_Sitemap_Interface
 	public function set_stock_tickers($tickers)
 	{
 		$this->_attributes['stock_tickers'] = $tickers;
+
+		return $this;
 	}
 
 	public function create()
