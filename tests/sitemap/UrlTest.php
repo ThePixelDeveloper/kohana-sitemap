@@ -109,7 +109,7 @@ class Sitemap_UrlTest extends PHPUnit_Framework_TestCase
 	{
 		$instance = new Sitemap_URL;
 		$return = $instance->set_loc($url);
-		$this->assertSame($return, $instance);
+		$this->assertSame($instance, $return);
 	}
 
 	/**
@@ -152,7 +152,7 @@ class Sitemap_UrlTest extends PHPUnit_Framework_TestCase
 		else
 		{
 			$return = $instance->set_last_mod($time);
-			$this->assertSame($return, $instance);
+			$this->assertSame($instance, $return);
 		}
 	}
 
@@ -209,7 +209,7 @@ class Sitemap_UrlTest extends PHPUnit_Framework_TestCase
 		else
 		{
 			$return = $instance->set_change_frequency($change_frequency);
-			$this->assertSame($return, $instance);
+			$this->assertSame($instance, $return);
 		}
 	}
 
@@ -241,16 +241,8 @@ class Sitemap_UrlTest extends PHPUnit_Framework_TestCase
 	public function test_set_priority($priority)
 	{
 		$instance = new Sitemap_URL;
-
-		try
-		{
-			$return = $instance->set_priority($priority);
-			$this->assertSame($return, $instance);
-		}
-		catch (Exception $e)
-		{
-			$this->fail($e->getMessage());
-		}
+		$return = $instance->set_priority($priority);
+		$this->assertSame($instance, $return);
 	}
 
 	/**
