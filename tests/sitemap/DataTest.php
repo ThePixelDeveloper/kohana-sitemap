@@ -116,7 +116,6 @@ class Sitemap_DataTest extends PHPUnit_Framework_TestCase
 	/**
 	 * @test
 	 * @group sitemap
-	 * @covers Kohana_Sitemap
 	 */
 	public function test_render_xml()
 	{
@@ -141,7 +140,6 @@ class Sitemap_DataTest extends PHPUnit_Framework_TestCase
 	/**
 	 * @test
 	 * @group sitemap
-	 * @covers Kohana_Sitemap
 	 */
 	public function test_render_gzip()
 	{

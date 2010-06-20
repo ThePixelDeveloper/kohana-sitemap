@@ -351,4 +351,15 @@ class Sitemap_UrlTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals($change_frequency, (string) $xml->changefreq);
 		$this->assertEquals($priority, (string) $xml->priority);
 	}
+
+	/**
+	 * @test
+	 * @group sitemap
+	 * @expectedException RuntimeException
+	 */
+	public function test_create_without_loc()
+	{
+		$instance = new Sitemap_URL;
+		$return = $instance->create();
+	}
 }
