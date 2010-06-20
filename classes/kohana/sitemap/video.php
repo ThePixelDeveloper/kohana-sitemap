@@ -143,7 +143,7 @@ class Kohana_Sitemap_Video implements Kohana_Sitemap_Interface
 		$this->_attributes['expiration_date'] = $this->date_format($expiration_date);
 	}
 
-	protected function create()
+	public function create()
 	{
 		// Here we need to create a new DOMDocument. This is so we can re-import the
 		// DOMElement at the other end.
