@@ -72,7 +72,7 @@ class Kohana_Sitemap_News implements Kohana_Sitemap_Interface
 		
 		$this->_publication['lang'] = $lang;
 
-		return TRUE;
+		return $this;
 	}
 
 	/**
@@ -90,7 +90,7 @@ class Kohana_Sitemap_News implements Kohana_Sitemap_Interface
 
 		$this->_attributes['access'] = $access;
 
-		return TRUE;
+		return $this;
 	}
 
 	/**
@@ -114,7 +114,7 @@ class Kohana_Sitemap_News implements Kohana_Sitemap_Interface
 
 		$this->_attributes['genres'] = implode(',', $genres);
 
-		return TRUE;
+		return $this;
 	}
 
 	/**
@@ -124,7 +124,7 @@ class Kohana_Sitemap_News implements Kohana_Sitemap_Interface
 	{
 		$this->_attributes['publication_date'] = Sitemap::date_format($date);
 
-		return TRUE;
+		return $this;
 	}
 
 	/**

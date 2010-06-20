@@ -53,7 +53,7 @@ class Sitemap_NewsTest extends PHPUnit_Framework_TestCase
 	{
 		$instance = new Sitemap_News;
 		$return = $instance->set_lang($lang);
-		$this->assertSame($return, TRUE);
+		$this->assertSame($instance, $return);
 	}
 
 	/**
@@ -105,7 +105,7 @@ class Sitemap_NewsTest extends PHPUnit_Framework_TestCase
 	{
 		$instance = new Sitemap_News;
 		$return = $instance->set_access($access);
-		$this->assertSame($return, TRUE);
+		$this->assertSame($instance, $return);
 	}
 
 	/**
@@ -157,7 +157,7 @@ class Sitemap_NewsTest extends PHPUnit_Framework_TestCase
 	{
 		$instance = new Sitemap_News;
 		$return = $instance->set_genres($genres);
-		$this->assertSame($return, TRUE);
+		$this->assertSame($instance, $return);
 	}
 
 	/**
@@ -225,7 +225,7 @@ class Sitemap_NewsTest extends PHPUnit_Framework_TestCase
 		else
 		{
 			$return = $instance->set_publication_date($time);
-			$this->assertSame(TRUE, $return);
+			$this->assertSame($instance, $return);
 		}
 	}
 }
