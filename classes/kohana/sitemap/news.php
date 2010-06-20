@@ -134,6 +134,8 @@ class Kohana_Sitemap_News implements Kohana_Sitemap_Interface
 	public function set_title($title)
 	{
 		$this->_attributes['title'] = $title;
+
+		return $this;
 	}
 
 	/**

@@ -228,4 +228,15 @@ class Sitemap_NewsTest extends PHPUnit_Framework_TestCase
 			$this->assertSame($instance, $return);
 		}
 	}
+
+	/**
+	 * @test
+	 * @group sitemap
+	 */
+	public function test_set_title()
+	{
+		$instance = new Sitemap_News;
+		$return = $instance->set_title('The Guardian');
+		$this->assertSame($instance, $return);
+	}
 }
