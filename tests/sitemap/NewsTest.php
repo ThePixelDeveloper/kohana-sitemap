@@ -239,4 +239,48 @@ class Sitemap_NewsTest extends PHPUnit_Framework_TestCase
 		$return = $instance->set_title('The Guardian');
 		$this->assertSame($instance, $return);
 	}
+
+	/**
+	 * @return array Test data for test_create
+	 */
+	public function provider_create()
+	{
+		return array
+		(
+			// Publication - Language - Access - Genre - Publication Date - Title - Tags
+			array('The Times', 'eng', 'subscription', array('PressRelease'), 1276811183, 'Nolimits 2 has been released', array('nolimits', 'coaster', 'rollercoaster')),
+			array('The Guardian', 'eng', 'registration', array('Blog', 'Opinion'), 1276811183, 'Charlie Brooker is funny', array('brooker', 'charlie', 'great'))
+		);
+	}
+
+	/**
+	 * @test
+	 * @group sitemap
+	 * @dataProvider provider_create
+	 * @param <type> $pub
+	 * @param <type> $lang
+	 * @param <type> $access
+	 * @param <type> $genre
+	 * @param <type> $date
+	 * @param <type> $title
+	 * @param <type> $tags
+	 */
+	public function test_create($pub, $lang, $access, $genre, $date, $title, $tags)
+	{
+		$instance = new Sitemap_News;
+
+		$instance
+			->set_publication($pub)
+			->set_lang($lang)
+			->set_access($access)
+			->set_genres($genre)
+			->set_publication_date($date)
+			->set_title($title)
+			->set_keywords($tags);
+
+		$return = $instance->create();
+
+		$xml = simplexml_import_dom($return);
+		var_dump($xml);
+	}
 }
