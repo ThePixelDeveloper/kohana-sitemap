@@ -145,9 +145,11 @@ class Kohana_Sitemap_News implements Kohana_Sitemap_Interface
 	 * 
 	 * @see http://www.google.com/support/webmasters/bin/answer.py?answer=116037
 	 */
-	public function set_keywords($keywords)
+	public function set_keywords( array $keywords)
 	{
-		$this->_attributes['keywords'] = $keywords;
+		$this->_attributes['keywords'] = implode(',', $keywords);
+
+		return $this;
 	}
 
 	/**
