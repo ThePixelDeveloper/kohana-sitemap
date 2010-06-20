@@ -112,4 +112,58 @@ class Sitemap_DataTest extends PHPUnit_Framework_TestCase
 			$this->assertRegExp('/^[1-5][0-9]{2}$/', (string) $statuses[$row]);
 		}
 	}
+
+	/**
+	 * @test
+	 * @group sitemap
+	 * @covers Kohana_Sitemap
+	 */
+	public function test_render_xml()
+	{
+		// Basic URL
+		$url = new Sitemap_URL;
+		$url->set_loc('http://example.com');
+
+		// Add the sitemap url.
+		$instance = new Sitemap;
+		$instance->add($url);
+
+		// Via render
+		$render = simplexml_load_string($instance->render());
+
+		// Via __toString
+		$tostring = simplexml_load_string((string) $instance);
+		
+		$this->assertSame(TRUE, $render instanceof SimpleXMLElement);
+		$this->assertSame(TRUE, $tostring instanceof SimpleXMLElement);
+	}
+
+	/**
+	 * @test
+	 * @group sitemap
+	 * @covers Kohana_Sitemap
+	 */
+	public function test_render_gzip()
+	{
+		// Basic URL
+		$url = new Sitemap_URL;
+		$url->set_loc('http://example.com');
+
+		// Add the sitemap url.
+		$instance = new Sitemap;
+		$instance->add($url);
+
+		// Enable gzip compression
+		$instance->gzip = TRUE;
+		$instance->compression = 9;
+
+		// Via render
+		$render = $instance->render();
+
+		// Via __toString
+		$tostring = (string) $instance;
+
+		$this->assertSame(TRUE, NULL !== http_inflate($render));
+		$this->assertSame(TRUE, NULL !== http_inflate($tostring));
+	}
 }
