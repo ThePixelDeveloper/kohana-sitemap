@@ -161,9 +161,23 @@ class Kohana_Sitemap_News implements Kohana_Sitemap_Interface
 	 *
 	 * @see http://finance.google.com/
 	 */
-	public function set_stock_tickers($tickers)
+	public function set_stock_tickers( array $tickers)
 	{
-		$this->_attributes['stock_tickers'] = $tickers;
+		if (count($tickers) > 5)
+		{
+			throw new OutOfRangeException('You can\'t provide more than 5 tickers');
+		}
+
+		// Check ticker values.
+		foreach($tickers as $ticker)
+		{
+			if (strpos($ticker, ':') === FALSE)
+			{
+				throw new InvalidArgumentException('The ticker '.$ticker.' is in the wrong format');
+			}
+		}
+
+		$this->_attributes['stock_tickers'] = implode(', ', $tickers);
 
 		return $this;
 	}

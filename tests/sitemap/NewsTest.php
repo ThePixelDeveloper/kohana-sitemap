@@ -28,6 +28,13 @@
  */
 class Sitemap_NewsTest extends PHPUnit_Framework_TestCase
 {
+	public function test_set_publication()
+	{
+		$instance = new Sitemap_News;
+		$return = $instance->set_publication('News of the World');
+		$this->assertSame($instance, $return);
+	}
+
 	/**
 	 * @return array Test data for test_set_loc_good_url
 	 */
@@ -241,6 +248,65 @@ class Sitemap_NewsTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * @test
+	 * @group sitemap
+	 */
+	public function test_set_keywords()
+	{
+		$instance = new Sitemap_News;
+		$return = $instance->set_keywords(array('hello', 'world', 'how', 'are', 'you'));
+		$this->assertSame($instance, $return);
+	}
+
+	/**
+	 * @return array Test data for test_set_stock_tickers
+	 */
+	public function provider_set_stock_tickers_good()
+	{
+		return array
+		(
+			array(array('hello:world', 'how:are', 'you:today')),
+			array(array('hello:world')),
+			array(array('hello:world', 'how:are', 'you:today', 'how:are', 'you:today'))
+		);
+	}
+
+	/**
+	 * @test
+	 * @group sitemap
+	 * @dataProvider provider_set_stock_tickers_good
+	 * @param array $tickers
+	 */
+	public function test_stock_tickers_good($tickers)
+	{
+		$instance = new Sitemap_News;
+		$return = $instance->set_stock_tickers($tickers);
+		$this->assertSame($instance, $return);
+	}
+
+	/**
+	 * @test
+	 * @group sitemap
+	 * @expectedException OutOfRangeException
+	 */
+	public function test_stock_tickers_range()
+	{
+		$instance = new Sitemap_News;
+		$instance->set_stock_tickers(array('stock:ticker', 'stock:ticker', 'stock:ticker', 'stock:ticker', 'stock:ticker', 'stock:ticker'));
+	}
+
+	/**
+	 * @test
+	 * @group sitemap
+	 * @expectedException InvalidArgumentException
+	 */
+	public function test_stock_tickers_invalid()
+	{
+		$instance = new Sitemap_News;
+		$instance->set_stock_tickers(array('invalid', 'stock:ticker', 'stock:ticker', 'stock:ticker', 'stock:ticker'));
+	}
+
+	/**
 	 * @return array Test data for test_create
 	 */
 	public function provider_create()
@@ -257,6 +323,7 @@ class Sitemap_NewsTest extends PHPUnit_Framework_TestCase
 	 * @test
 	 * @group sitemap
 	 * @dataProvider provider_create
+	 * @covers Sitemap_News::create
 	 * @param <type> $pub
 	 * @param <type> $lang
 	 * @param <type> $access
