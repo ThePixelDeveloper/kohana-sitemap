@@ -135,7 +135,7 @@ class Kohana_Sitemap
 		$replacements = array('!', '*', "'", "(", ")", ";", ":", "@", "&", "=", "+",
 			"$", ",", "/", "?", "#", "[", "]");
 
-		$string = str_replace($entities, $replacements, urlencode($string));
+		$string = str_replace($entities, $replacements, rawurlencode($string));
 		
 		return str_replace('&#039;', '&apos;', $string);
 	}
