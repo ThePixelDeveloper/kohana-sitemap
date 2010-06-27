@@ -19,7 +19,8 @@
  *
  * @author Mathew Leigh Davies <thepixeldeveloper@googlemail.com>
  */
-class Sitemap_Url_Video extends Sitemap_Data {
+class Kohana_Sitemap_Video implements Kohana_Sitemap_Interface
+{
 
 	// Attributes
 	private $_attributes = array
@@ -142,7 +143,7 @@ class Sitemap_Url_Video extends Sitemap_Data {
 		$this->_attributes['expiration_date'] = $this->date_format($expiration_date);
 	}
 
-	protected function create()
+	public function create()
 	{
 		// Here we need to create a new DOMDocument. This is so we can re-import the
 		// DOMElement at the other end.

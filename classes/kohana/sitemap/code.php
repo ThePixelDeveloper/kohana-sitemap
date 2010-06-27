@@ -19,7 +19,8 @@
  *
  * @author Mathew Leigh Davies <thepixeldeveloper@googlemail.com>
  */
-class Sitemap_Url_Code extends Sitemap_Data {
+class Kohana_Sitemap_Code implements Kohana_Sitemap_Interface
+{
 
 	private $_attributes = array
 	(

@@ -19,4 +19,4 @@
  *
  * @author Mathew Leigh Davies <thepixeldeveloper@googlemail.com>
  */
-class Sitemap_URL extends Kohana_Sitemap_URL { }
+class Sitemap_Geo extends Kohana_Sitemap_Geo { }

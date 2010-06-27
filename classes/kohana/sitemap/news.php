@@ -19,13 +19,21 @@
  *
  * @author Mathew Leigh Davies <thepixeldeveloper@googlemail.com>
  */
-class Sitemap_Url_News extends Sitemap_Data {
+class Kohana_Sitemap_News implements Kohana_Sitemap_Interface
+{
+	/**
+	 * @var array publication details
+	 */
+	protected $_publication = array
+	(
+		'publication' => NULL,
+		'lang'        => NULL
+	);
 
-	private $_publication = NULL;
-
-	private $_lang = NULL;
-
-	private $_attributes = array
+	/**
+	 * @var array article attributes
+	 */
+	protected $_attributes = array
 	(
 		'access'					 => NULL,
 		'genres'					 => NULL,
@@ -42,7 +50,9 @@ class Sitemap_Url_News extends Sitemap_Data {
 	 */
 	public function set_publication($publication)
 	{
-		$this->_publication = $publication;
+		$this->_publication['publication'] = $publication;
+
+		return $this;
 	}
 
 	/**
@@ -54,7 +64,17 @@ class Sitemap_Url_News extends Sitemap_Data {
 	 */
 	public function set_lang($lang)
 	{
-		$this->_lang = $lang;
+		if ('zh-cn' !== $lang AND 'zh-tw' !== $lang)
+		{
+			if ( ! Validate::regex($lang, '/^[a-z]{2,3}$/'))
+			{
+				throw new InvalidArgumentException('Invalid language code');
+			}
+		}
+		
+		$this->_publication['lang'] = $lang;
+
+		return $this;
 	}
 
 	/**
@@ -65,7 +85,14 @@ class Sitemap_Url_News extends Sitemap_Data {
 	 */
 	public function set_access($access)
 	{
+		if ('subscription' !== strtolower($access) AND 'registration' !== strtolower($access))
+		{
+			throw new InvalidArgumentException('Invalid access string');
+		}
+
 		$this->_attributes['access'] = $access;
+
+		return $this;
 	}
 
 	/**
@@ -76,9 +103,20 @@ class Sitemap_Url_News extends Sitemap_Data {
 	 *
 	 * @see http://www.google.com/support/webmasters/bin/answer.py?answer=93992
 	 */
-	public function set_genres($genres)
+	public function set_genres( array $genres)
 	{
-		$this->_attributes['genres'] = $genres;
+		$allowed = array('PressRelease', 'Satire', 'Blog', 'OpEd', 'Opinion', 'UserGenerated');
+
+		$difference = array_diff($genres, $allowed);
+
+		if (count($difference) > 0)
+		{
+			throw new InvalidArgumentException('Invalid genre passed');
+		}
+
+		$this->_attributes['genres'] = implode(',', $genres);
+
+		return $this;
 	}
 
 	/**
@@ -86,7 +124,9 @@ class Sitemap_Url_News extends Sitemap_Data {
 	 */
 	public function set_publication_date($date)
 	{
-		$this->_attributes['publication_date'] = $this->date_format($date);
+		$this->_attributes['publication_date'] = Sitemap::date_format($date);
+
+		return $this;
 	}
 
 	/**
@@ -96,6 +136,8 @@ class Sitemap_Url_News extends Sitemap_Data {
 	public function set_title($title)
 	{
 		$this->_attributes['title'] = $title;
+
+		return $this;
 	}
 
 	/**
@@ -105,9 +147,11 @@ class Sitemap_Url_News extends Sitemap_Data {
 	 * 
 	 * @see http://www.google.com/support/webmasters/bin/answer.py?answer=116037
 	 */
-	public function set_keywords($keywords)
+	public function set_keywords( array $keywords)
 	{
-		$this->_attributes['keywords'] = $keywords;
+		$this->_attributes['keywords'] = implode(',', $keywords);
+
+		return $this;
 	}
 
 	/**
@@ -117,9 +161,25 @@ class Sitemap_Url_News extends Sitemap_Data {
 	 *
 	 * @see http://finance.google.com/
 	 */
-	public function set_stock_tickers($tickers)
+	public function set_stock_tickers( array $tickers)
 	{
-		$this->_attributes['stock_tickers'] = $tickers;
+		if (count($tickers) > 5)
+		{
+			throw new OutOfRangeException('You can\'t provide more than 5 tickers');
+		}
+
+		// Check ticker values.
+		foreach($tickers as $ticker)
+		{
+			if (strpos($ticker, ':') === FALSE)
+			{
+				throw new InvalidArgumentException('The ticker '.$ticker.' is in the wrong format');
+			}
+		}
+
+		$this->_attributes['stock_tickers'] = implode(', ', $tickers);
+
+		return $this;
 	}
 
 	public function create()
@@ -136,8 +196,8 @@ class Sitemap_Url_News extends Sitemap_Data {
 		$news->appendChild($publication);
 
 		// Publication attributes
-		$publication->appendChild($document->createElement('n:name', $this->_publication));
-		$publication->appendChild($document->createElement('n:lang', $this->_lang));
+		$publication->appendChild($document->createElement('n:name', $this->_publication['publication']));
+		$publication->appendChild($document->createElement('n:lang', $this->_publication['lang']));
 
 		// Append attributes
 		foreach($this->_attributes as $name => $value)

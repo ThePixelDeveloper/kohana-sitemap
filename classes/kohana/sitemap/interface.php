@@ -19,46 +19,15 @@
  *
  * @author Mathew Leigh Davies <thepixeldeveloper@googlemail.com>
  */
-abstract class Sitemap_Data {
-
+interface Kohana_Sitemap_Interface
+{
 	/**
-	 * @return DOMElement Extra sitemap information
-	 */
-	abstract public function create();
-
-	/**
-	 * Allows concrete classes to change the document root (urlset) attributes
 	 *
-	 * @param DOMElement $root Document root
-	 * @return DOMElement
 	 */
-	abstract public function root( DOMElement & $root );
-	
-	/**
-	 * UTF8 encode a string
-	 *
-	 * @access public
-	 * @param string $string
-	 * @return string
-	 */
-	protected function encode($string)
-	{
-		$string = htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
-
-		// Convert &#039; to &apos;
-		return str_replace('&#039;', '&apos;', $string);
-	}
+	public function create();
 
 	/**
-	 * Format a unix timestamp into W3C Datetime
-	 *
-	 * @access public
-	 * @see http://www.w3.org/TR/NOTE-datetime
-	 * @param string $unix Unixtimestamp
-	 * @return string W3C Datetime
+	 * 
 	 */
-	protected function date_format($unix)
-	{
-		return date('Y-m-d\TH:i:sP', $unix);
-	}
+	public function root(DOMElement & $root);
 }
