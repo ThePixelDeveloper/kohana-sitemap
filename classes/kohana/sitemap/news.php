@@ -169,23 +169,23 @@ abstract class Kohana_Sitemap_News implements Kohana_Sitemap_Interface
 		// DOMElement at the other end.
 		$document = new DOMDocument;
 
-		$news = $document->createElement('n:news');
+		$news = $document->createElement('news:news');
 
 		// Publication 
-		$publication = $document->createElement('n:publication');
+		$publication = $document->createElement('news:publication');
 
 		$news->appendChild($publication);
 
 		// Publication attributes
-		$publication->appendChild($document->createElement('n:name', $this->_publication['publication']));
-		$publication->appendChild($document->createElement('n:lang', $this->_publication['lang']));
+		$publication->appendChild($document->createElement('news:name', $this->_publication['publication']));
+		$publication->appendChild($document->createElement('news:lang', $this->_publication['lang']));
 
 		// Append attributes
 		foreach($this->_attributes as $name => $value)
 		{
 			if (NULL !== $value)
 			{
-				$news->appendChild($document->createElement('n:'.$name, $value));
+				$news->appendChild($document->createElement('news:'.$name, $value));
 			}
 		}
 
@@ -194,7 +194,7 @@ abstract class Kohana_Sitemap_News implements Kohana_Sitemap_Interface
 
 	public function root( DOMElement & $root )
 	{
-		$root->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:n', 'http://www.google.com/schemas/sitemap-news/0.9');
+		$root->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:news', 'http://www.google.com/schemas/sitemap-news/0.9');
 	}
 
 }
