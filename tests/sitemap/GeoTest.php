@@ -29,8 +29,8 @@ class Sitemap_GeoTest extends PHPUnit_Framework_TestCase
 	 * @test
 	 * @group sitemap
 	 * @dataProvider provider_set_format
-	 * @param <type> $format
-	 * @param <type> $raise_exception 
+	 * @param mixed $format
+	 * @param boolean $raise_exception
 	 */
 	public function test_set_format($format, $raise_exception = FALSE)
 	{
@@ -54,5 +54,25 @@ class Sitemap_GeoTest extends PHPUnit_Framework_TestCase
 			$return = $instance->set_format($format);
 			$this->assertSame($instance, $return);
 		}
+	}
+
+	/**
+	 * @test
+	 * @group sitemap
+	 */
+	public function test_create()
+	{
+		$geo = new Sitemap_Geo();
+		$geo->set_format('kml');
+
+		// Pass in the sitemap class
+		$instance = new Sitemap_URL($geo);
+		$instance->set_loc('http://google.com');
+
+		// Should have a <geo:geo/>
+		$result = $instance->create();
+		$xml = simplexml_import_dom($result);
+		$this->assertSame(TRUE, property_exists($xml, 'geo:geo'));
+		$this->assertSame(TRUE, property_exists($xml->{"geo:geo"}, 'geo:format'));
 	}
 }

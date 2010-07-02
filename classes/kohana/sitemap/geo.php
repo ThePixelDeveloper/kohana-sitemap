@@ -38,7 +38,7 @@ abstract class Kohana_Sitemap_Geo implements Kohana_Sitemap_Interface
 		$geo = $document->createElement('geo:geo');
 
 		// Add format
-		$format = $document->createElement('geo:format', $this->_format);
+		$geo->appendChild($document->createElement('geo:format', $this->_format));
 
 		return $geo;
 	}
