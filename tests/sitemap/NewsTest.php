@@ -336,4 +336,28 @@ class Sitemap_NewsTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals($title, (string) $xml->{'n:title'});
 		$this->assertEquals(implode(',', $tags), (string) $xml->{'n:keywords'});
 	}
+
+	/**
+	 * @test
+	 * @group sitemap
+	 */
+	public function test_root()
+	{
+		// Base Sitemap
+		$sitemap = new Sitemap;
+
+		// Create basic Mobile Sitemap
+		$instance = new Sitemap_URL(new Sitemap_News);
+		$instance->set_loc('http://google.com');
+		$sitemap->add($instance);
+
+		// Load the end XML
+		$xml = new SimpleXMLElement($sitemap->render());
+
+		// Namespaces.
+		$namespaces = $xml->getDocNamespaces();
+
+		$this->assertSame(TRUE, isset($namespaces['news']));
+		$this->assertSame('http://www.google.com/schemas/sitemap-news/0.9', $namespaces['news']);
+	}
 }
