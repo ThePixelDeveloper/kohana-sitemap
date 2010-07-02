@@ -1,24 +1,4 @@
 <?php defined('SYSPATH') or die('No direct script access.');
-/**
- * Sitemap generation class
- *
- * Copyright (C) 2009 Mathew Leigh Davies
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- *
- * @author Mathew Leigh Davies <thepixeldeveloper@googlemail.com>
- */
 
 /**
  * Tests Sitemap_News
@@ -348,12 +328,36 @@ class Sitemap_NewsTest extends PHPUnit_Framework_TestCase
 		$return = $instance->create();
 
 		$xml = simplexml_import_dom($return);
-		$this->assertEquals($pub, (string) $xml->{'n:publication'}->{'n:name'});
-		$this->assertEquals($lang, (string) $xml->{'n:publication'}->{'n:lang'});
-		$this->assertEquals($access, (string) $xml->{'n:access'});
-		$this->assertEquals(implode(',', $genre), (string) $xml->{'n:genres'});
-		$this->assertEquals(Sitemap::date_format($date), (string) $xml->{'n:publication_date'});
-		$this->assertEquals($title, (string) $xml->{'n:title'});
-		$this->assertEquals(implode(',', $tags), (string) $xml->{'n:keywords'});
+		$this->assertEquals($pub, (string) $xml->{'news:publication'}->{'news:name'});
+		$this->assertEquals($lang, (string) $xml->{'news:publication'}->{'news:lang'});
+		$this->assertEquals($access, (string) $xml->{'news:access'});
+		$this->assertEquals(implode(',', $genre), (string) $xml->{'news:genres'});
+		$this->assertEquals(Sitemap::date_format($date), (string) $xml->{'news:publication_date'});
+		$this->assertEquals($title, (string) $xml->{'news:title'});
+		$this->assertEquals(implode(',', $tags), (string) $xml->{'news:keywords'});
+	}
+
+	/**
+	 * @test
+	 * @group sitemap
+	 */
+	public function test_root()
+	{
+		// Base Sitemap
+		$sitemap = new Sitemap;
+
+		// Create basic Mobile Sitemap
+		$instance = new Sitemap_URL(new Sitemap_News);
+		$instance->set_loc('http://google.com');
+		$sitemap->add($instance);
+
+		// Load the end XML
+		$xml = new SimpleXMLElement($sitemap->render());
+
+		// Namespaces.
+		$namespaces = $xml->getDocNamespaces();
+
+		$this->assertSame(TRUE, isset($namespaces['news']));
+		$this->assertSame('http://www.google.com/schemas/sitemap-news/0.9', $namespaces['news']);
 	}
 }

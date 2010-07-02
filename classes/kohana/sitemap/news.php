@@ -1,25 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
-/**
- * Sitemap generation class
- *
- * Copyright (C) 2009 Mathew Leigh Davies
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- *
- * @author Mathew Leigh Davies <thepixeldeveloper@googlemail.com>
- */
-class Kohana_Sitemap_News implements Kohana_Sitemap_Interface
+
+abstract class Kohana_Sitemap_News implements Kohana_Sitemap_Interface
 {
 	/**
 	 * @var array publication details
@@ -188,23 +169,23 @@ class Kohana_Sitemap_News implements Kohana_Sitemap_Interface
 		// DOMElement at the other end.
 		$document = new DOMDocument;
 
-		$news = $document->createElement('n:news');
+		$news = $document->createElement('news:news');
 
 		// Publication 
-		$publication = $document->createElement('n:publication');
+		$publication = $document->createElement('news:publication');
 
 		$news->appendChild($publication);
 
 		// Publication attributes
-		$publication->appendChild($document->createElement('n:name', $this->_publication['publication']));
-		$publication->appendChild($document->createElement('n:lang', $this->_publication['lang']));
+		$publication->appendChild($document->createElement('news:name', $this->_publication['publication']));
+		$publication->appendChild($document->createElement('news:lang', $this->_publication['lang']));
 
 		// Append attributes
 		foreach($this->_attributes as $name => $value)
 		{
 			if (NULL !== $value)
 			{
-				$news->appendChild($document->createElement('n:'.$name, $value));
+				$news->appendChild($document->createElement('news:'.$name, $value));
 			}
 		}
 
@@ -213,7 +194,7 @@ class Kohana_Sitemap_News implements Kohana_Sitemap_Interface
 
 	public function root( DOMElement & $root )
 	{
-		$root->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:n', 'http://www.google.com/schemas/sitemap-news/0.9');
+		$root->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:news', 'http://www.google.com/schemas/sitemap-news/0.9');
 	}
 
 }
