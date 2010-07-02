@@ -1,5 +1,6 @@
 # Version 1.0.1
 
+ - Add tests for the Mobile Sitemap.
  - Make Kohana_Sitemap_* classes abstract.
  - Changed to the [ISC License](http://en.wikipedia.org/wiki/ISC_license)
 
