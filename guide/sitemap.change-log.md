@@ -1,5 +1,7 @@
 # Version 1.0.1
 
+#### Dated: Fri 02 Jul 2010, 9:12	PM
+
  - Use "news" namespace instead of "n" in the news sitemap.
  - Add tests for the Mobile and Geo Sitemap.
  - Make Kohana_Sitemap_* classes abstract.
