@@ -3,11 +3,11 @@
 abstract class Kohana_Sitemap_Geo implements Kohana_Sitemap_Interface
 {
 
-	private $_format = NULL;
+	protected $_format = NULL;
 
-	private $_allowed_formats = array
+	protected $_allowed_formats = array
 	(
-		'kml', 'georss'
+		'kml', 'kmz', 'georss'
 	);
 
 	/**
@@ -18,10 +18,14 @@ abstract class Kohana_Sitemap_Geo implements Kohana_Sitemap_Interface
 	 */
 	public function set_format($format)
 	{
-		if (in_array($format, $this->_allowed_formats))
+		if (in_array((string) $format, $this->_allowed_formats))
 		{
 			$this->_format = $format;
+
+			return $this;
 		}
+
+		throw new InvalidArgumentException('The format must either be kml, kmlz or georss');
 	}
 
 	public function create()
