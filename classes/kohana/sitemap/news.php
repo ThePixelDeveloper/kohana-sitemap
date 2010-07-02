@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Kohana_Sitemap_News implements Kohana_Sitemap_Interface
+abstract class Kohana_Sitemap_News implements Kohana_Sitemap_Interface
 {
 	/**
 	 * @var array publication details

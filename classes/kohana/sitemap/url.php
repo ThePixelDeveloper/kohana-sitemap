@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Kohana_Sitemap_URL implements Kohana_Sitemap_Interface
+abstract class Kohana_Sitemap_URL implements Kohana_Sitemap_Interface
 {
 	private $attributes = array
 	(
