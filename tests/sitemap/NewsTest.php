@@ -328,13 +328,13 @@ class Sitemap_NewsTest extends PHPUnit_Framework_TestCase
 		$return = $instance->create();
 
 		$xml = simplexml_import_dom($return);
-		$this->assertEquals($pub, (string) $xml->{'n:publication'}->{'n:name'});
-		$this->assertEquals($lang, (string) $xml->{'n:publication'}->{'n:lang'});
-		$this->assertEquals($access, (string) $xml->{'n:access'});
-		$this->assertEquals(implode(',', $genre), (string) $xml->{'n:genres'});
-		$this->assertEquals(Sitemap::date_format($date), (string) $xml->{'n:publication_date'});
-		$this->assertEquals($title, (string) $xml->{'n:title'});
-		$this->assertEquals(implode(',', $tags), (string) $xml->{'n:keywords'});
+		$this->assertEquals($pub, (string) $xml->{'news:publication'}->{'news:name'});
+		$this->assertEquals($lang, (string) $xml->{'news:publication'}->{'news:lang'});
+		$this->assertEquals($access, (string) $xml->{'news:access'});
+		$this->assertEquals(implode(',', $genre), (string) $xml->{'news:genres'});
+		$this->assertEquals(Sitemap::date_format($date), (string) $xml->{'news:publication_date'});
+		$this->assertEquals($title, (string) $xml->{'news:title'});
+		$this->assertEquals(implode(',', $tags), (string) $xml->{'news:keywords'});
 	}
 
 	/**
