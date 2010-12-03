@@ -12,6 +12,17 @@ abstract class Kohana_Sitemap_Code implements Kohana_Sitemap_Interface
 		'packagemap' => NULL
 	);
 
+	protected $_licenses = array
+	(
+		'aladdin','artistic','apache','apple','bsd','cpl','gpl','lgpl','disclaimer',
+		'ibm','lucent','mit','mozilla','nasa','python','qpl','sleepycat','zope'
+	);
+
+	protected $_archives = array
+	(
+		'.tar','.tar.z','.tar.gz','.tgz','.tar.bz2','.tbz','.tbz2','.zip'
+	);
+
 	/**
 	 * @param string $type Case-insensitive. The value "archive" indicates that
 	 * the file is an archive file. For source code files, the value defines the
@@ -24,7 +35,21 @@ abstract class Kohana_Sitemap_Code implements Kohana_Sitemap_Interface
 	 */
 	public function set_file_type($type)
 	{
+		$type = (string) $type;
+		
+		if(preg_match('/[\s]/', $type))
+		{
+			throw new InvalidArgumentException('Type can\'t contain whitespace');
+		}
+
+		if (preg_match('/[^\x00-\x7F]/', $type))
+		{
+			throw new InvalidArgumentException('Type must only contain ASCII characters');
+		}
+
 		$this->_attributes['filetype'] = $type;
+
+		return $this;
 	}
 
 	/**
@@ -37,7 +62,18 @@ abstract class Kohana_Sitemap_Code implements Kohana_Sitemap_Interface
 	 */
 	public function set_license($license)
 	{
+		$license = (string) $license;
+
+		if ( !in_array($license, $this->_licenses))
+		{
+			throw new InvalidArgumentException('Invalid license type.
+				See http://www.google.com/support/webmasters/bin/answer.py?answer=75256
+				for details');
+		}
+		
 		$this->_attributes['license'] = $license;
+
+		return $this;
 	}
 
 	/**
@@ -50,7 +86,19 @@ abstract class Kohana_Sitemap_Code implements Kohana_Sitemap_Interface
 	 */
 	public function set_file_name($file_name)
 	{
-		$this->_attributes['filename'] = $file_name;
+		$file_name = (string) $file_name;
+
+		if ($this->_attributes['filetype'] === 'archive')
+		{
+			if( ! in_array(pathinfo($file_name, PATHINFO_EXTENSION), $this->archives))
+			{
+				throw new InvalidArgumentException('Not a valid archive type');
+			}
+		}
+
+		$this->_attributes['filename'] = basename($file_name);
+
+		return $this;
 	}
 
 	/**
