@@ -90,7 +90,7 @@ abstract class Kohana_Sitemap_Code implements Kohana_Sitemap_Interface
 
 		if ($this->_attributes['filetype'] === 'archive')
 		{
-			if( ! in_array(pathinfo($file_name, PATHINFO_EXTENSION), $this->archives))
+			if( ! in_array(pathinfo($file_name, PATHINFO_EXTENSION), $this->_archives))
 			{
 				throw new InvalidArgumentException('Not a valid archive type');
 			}
