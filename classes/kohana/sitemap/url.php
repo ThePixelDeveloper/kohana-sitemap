@@ -19,14 +19,14 @@ abstract class Kohana_Sitemap_URL implements Kohana_Sitemap_Interface
 	 */
 	public function set_loc($location)
 	{
-		if ( ! Valid::max_length($location, 2048))
+		if ( ! Validate::max_length($location, 2048))
 		{
 			throw new LengthException('The location was too long, maximum length of 2,048 characters.');
 		}
 
 		$location = Sitemap::encode($location);
 
-		if ( ! Valid::url($location))
+		if ( ! Validate::url($location))
 		{
 			throw new InvalidArgumentException('The location was not a valid URL');
 		}
