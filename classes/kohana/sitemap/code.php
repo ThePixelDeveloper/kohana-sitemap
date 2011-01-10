@@ -37,7 +37,7 @@ abstract class Kohana_Sitemap_Code implements Kohana_Sitemap_Interface
 	{
 		$type = (string) $type;
 		
-		if ( ! preg_match('/^[a-z][a-z0-9+]*$/i', $type))
+		if ( ! preg_match('/^[a-z][a-z0-9+#]*$/i', $type))
 		{
 			throw new InvalidArgumentException('Type must only contain ASCII letter characters');
 		}
