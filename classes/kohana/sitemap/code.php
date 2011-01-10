@@ -37,14 +37,9 @@ abstract class Kohana_Sitemap_Code implements Kohana_Sitemap_Interface
 	{
 		$type = (string) $type;
 		
-		if(preg_match('/[\s]/', $type))
+		if ( ! preg_match('/^[a-z][a-z0-9+]*$/i', $type))
 		{
-			throw new InvalidArgumentException('Type can\'t contain whitespace');
-		}
-
-		if (preg_match('/[^\x00-\x7F]/', $type))
-		{
-			throw new InvalidArgumentException('Type must only contain ASCII characters');
+			throw new InvalidArgumentException('Type must only contain ASCII letter characters');
 		}
 
 		$this->_attributes['filetype'] = $type;
