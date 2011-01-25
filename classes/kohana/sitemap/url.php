@@ -144,6 +144,8 @@ abstract class Kohana_Sitemap_URL implements Kohana_Sitemap_Interface
 	{
 		// Add urlset namespace.
 		$root->setAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
+		$root->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
+		$root->setAttribute('xsi:schemaLocation', 'http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd');
 
 		if (NULL !== $this->driver)
 		{
