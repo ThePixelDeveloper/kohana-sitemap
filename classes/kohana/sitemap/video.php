@@ -4,17 +4,16 @@ abstract class Kohana_Sitemap_Video implements Kohana_Sitemap_Interface
 {
 	private $_attributes = array
 	(
-		
-		'thumbnail_loc'		 => NULL,
-		'title'						 => NULL,
-		'description'			 => NULL,
-		'content_loc'			 => NULL,
-		'expiration_date'  => NULL,
-		'rating'					 => NULL,
-		'view_count'			 => NULL,
-		'publication_date' => NULL,
-		'category'				 => NULL,
-		'family_friendly'  => NULL,
+		'thumbnail_loc'         => NULL,
+		'title'                 => NULL,
+		'description'           => NULL,
+		'content_loc'           => NULL,
+		'expiration_date'       => NULL,
+		'rating'                => NULL,
+		'view_count'            => NULL,
+		'publication_date'      => NULL,
+		'category'              => NULL,
+		'family_friendly'       => NULL,
 		'requires_subscription' => NULL
 	);
 	
