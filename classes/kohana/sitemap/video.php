@@ -176,7 +176,7 @@ abstract class Kohana_Sitemap_Video implements Kohana_Sitemap_Interface
 			throw new OverflowException('A maximum of 32 tags are permitted');
 		}
 		
-		$this->_attributes['tags'][] = $tag;
+		$this->_attributes['tags'][] = array('tag' => $tag);
 	}
 
 	/**
