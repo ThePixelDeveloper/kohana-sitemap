@@ -26,7 +26,7 @@ abstract class Kohana_Sitemap_Video implements Kohana_Sitemap_Interface
 	 */
 	public function set_thumbnail_loc($thumbnail_loc)
 	{
-		$this->_attributes['thumnail_loc'] = $thumbnail_loc;
+		$this->_attributes['thumbnail_loc'] = $thumbnail_loc;
 	}
 
 	/**
