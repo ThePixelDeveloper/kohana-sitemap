@@ -1,3 +1,7 @@
+# Version 1.0.2
+
+ - Updated XML header: https://github.com/ThePixelDeveloper/kohana-sitemap/issues/closed#issue/3
+
 # Version 1.0.1
 
 #### Dated: Fri 02 Jul 2010, 9:12	PM
