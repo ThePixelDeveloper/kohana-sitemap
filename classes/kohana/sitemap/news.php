@@ -178,7 +178,7 @@ abstract class Kohana_Sitemap_News implements Kohana_Sitemap_Interface
 
 		// Publication attributes
 		$publication->appendChild($document->createElement('news:name', $this->_publication['publication']));
-		$publication->appendChild($document->createElement('news:lang', $this->_publication['lang']));
+		$publication->appendChild($document->createElement('news:language', $this->_publication['lang']));
 
 		// Append attributes
 		foreach($this->_attributes as $name => $value)
