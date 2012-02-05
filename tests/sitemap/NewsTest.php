@@ -329,7 +329,7 @@ class Sitemap_NewsTest extends PHPUnit_Framework_TestCase
 
 		$xml = simplexml_import_dom($return);
 		$this->assertEquals($pub, (string) $xml->{'news:publication'}->{'news:name'});
-		$this->assertEquals($lang, (string) $xml->{'news:publication'}->{'news:lang'});
+		$this->assertEquals($lang, (string) $xml->{'news:publication'}->{'news:language'});
 		$this->assertEquals($access, (string) $xml->{'news:access'});
 		$this->assertEquals(implode(',', $genre), (string) $xml->{'news:genres'});
 		$this->assertEquals(Sitemap::date_format($date), (string) $xml->{'news:publication_date'});
