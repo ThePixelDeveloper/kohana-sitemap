@@ -82,7 +82,7 @@ class Sitemap_DataTest extends PHPUnit_Framework_TestCase
 	public function test_ping()
 	{
 		// Ping keys
-		$keys = array_keys(Kohana::config('sitemap.ping'));
+		$keys = array_keys(Kohana::$config->load('sitemap.ping'));
 
 		$statuses = Sitemap::ping('http://example.com/sitemap.xml');
 
