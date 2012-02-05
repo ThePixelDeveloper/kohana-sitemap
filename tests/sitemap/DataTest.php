@@ -89,7 +89,7 @@ class Sitemap_DataTest extends PHPUnit_Framework_TestCase
 		// Make sure we get a valid HTTP code back.
 		foreach($keys as $row)
 		{
-			$this->assertRegExp('/^[1-5][0-9]{2}$/', (string) $statuses[$row]);
+			$this->assertRegExp('/^([1-5][0-9]{2}|0)$/', (string) $statuses[$row]);
 		}
 	}
 
