@@ -56,7 +56,7 @@ class Kohana_Sitemap
 		$master = curl_multi_init();
 
 		// List of URLs to ping
-		$URLs = Kohana::config('sitemap.ping');
+		$URLs = Kohana::$config->load('sitemap.ping');
 
 		$handles = array();
 
