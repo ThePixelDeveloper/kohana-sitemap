@@ -18,7 +18,13 @@ Installation
 Keeping up to date
 -------------------
 
-    git submodule update
+Run
+
+    git pull
+
+in the repository, then commit the change to the submodule in your parent
+repository.
+
 
 Bugs
 ----
