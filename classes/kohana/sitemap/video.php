@@ -279,7 +279,7 @@ abstract class Kohana_Sitemap_Video implements Kohana_Sitemap_Interface
 		/**
 		 * Small recursive function to add attributes to the document.
 		 */
-		$append_attributes = function($attributes) use ($video)
+		$append_attributes = function($attributes) use ($video, $document)
 		{
 			foreach($attributes as $name => $value)
 			{
