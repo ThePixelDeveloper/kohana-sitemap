@@ -290,7 +290,9 @@ abstract class Kohana_Sitemap_Video implements Kohana_Sitemap_Interface
 						$append_attributes($value);
 					}
 					
-					$video->appendChild($document->createElement('video:'.$name, $value));
+					$element = $document->createElement('video:'.$name);
+					$element->appendChild($document->createTextNode($value));
+					$video->appendChild($element);
 				}
 			}
 		};
