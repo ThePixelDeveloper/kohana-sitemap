@@ -246,11 +246,11 @@ abstract class Kohana_Sitemap_Video implements Kohana_Sitemap_Interface
 	 * @param bool $subscription Indicates whether a subscription (either paid or free) 
 	 * is required to view the video. Allowed values are yes or no.
 	 */
-	public function set_subscription($subscription)
+	public function set_requires_subscription($requires_subscription)
 	{
-		$subscription = $subscription ? 'yes' : 'no';
+		$requires_subscription = $requires_subscription ? 'yes' : 'no';
 		
-		$this->_attributes['subscription'] = $subscription;
+		$this->_attributes['requires_subscription'] = $requires_subscription;
 	}
 
 	/**
