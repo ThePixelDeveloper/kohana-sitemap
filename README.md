@@ -1,5 +1,7 @@
-Sitemap Module
+Sitemap Module (jayphelps edition)
 ==============
+
+Note: Since the [upstream](https://github.com/ThePixelDeveloper/kohana-sitemap) repo is no longer maintained, this repo contains additional fixes and features I've found useful.
 
 This module allows you to create XML sitemaps. This module supports the current types of sitemap:
 
