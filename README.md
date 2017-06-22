@@ -1,3 +1,9 @@
+NO LONGER MAINTAINED
+====================
+
+[Kohana](http://kohanaframework.org) is has been deprecated
+-----
+
 Sitemap Module
 ==============
 
